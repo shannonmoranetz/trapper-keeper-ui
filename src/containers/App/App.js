@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
+import { connect } from 'react-redux';
+import { getNotes } from '../../thunks/getNotes';
 
 class App extends Component {
   constructor() {
@@ -8,6 +10,18 @@ class App extends Component {
       showPopup: false
     };
   }
+  componentDidMount = () => {
+    this.fetchNotesOnMount()
+  }
+  
+  fetchNotesOnMount = () => {
+    try {
+      this.props.getNotes('http://localhost:3001/notes')
+    } catch(error) {
+      console.log('you have an error', error)
+    }
+  }
+
   handleClick = () => this.setState({ showPopup: !this.state.showPopup });
   render() {
     const { showPopup } = this.state;
@@ -22,4 +36,9 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const mapDispatchToProps = (dispatch) => ({
+  getNotes: (url) => dispatch(getNotes(url))
+})
+
+export default connect(null, mapDispatchToProps)(App)
