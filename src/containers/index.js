@@ -1,6 +1,6 @@
-import Note from "./Note/Note";
-import NoteItemList from "./NoteItemList/NoteItemList";
+import NoteCard from "./NoteArea/NoteCard/NoteCard";
+import NoteItems from "./NoteArea/NoteCard/NoteItems/NoteItems";
 import NoteArea from "./NoteArea/NoteArea";
 import CreateNote from "./CreateNote/CreateNote";
 
-export { Note, NoteItemList, NoteArea, CreateNote };
+export { NoteCard, NoteItems, NoteArea, CreateNote };

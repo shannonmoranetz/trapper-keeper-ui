@@ -8,7 +8,7 @@ class CreateNote extends React.Component {
     super(props);
     this.state = {
       title: "",
-      noteItemList: [
+      noteItems: [
         { id: uuid(), text: "default" },
         { id: uuid(), text: "default" }
       ]
@@ -18,8 +18,8 @@ class CreateNote extends React.Component {
     this.setState({ title: event.target.value });
   };
   handleChange = event => {
-    const { noteItemList } = this.state;
-    let tempNoteList = [...noteItemList];
+    const { noteItems } = this.state;
+    let tempNoteList = [...noteItems];
     const { id, text } = event.target;
     tempNoteList.forEach(note => {
       if (note.id == event.target.id) {
@@ -30,14 +30,14 @@ class CreateNote extends React.Component {
       tempNoteList.push({ id, text });
     }
     this.setState({
-      noteItemList: tempNoteList
+      noteItems: tempNoteList
     });
   };
 
   getListItems() {
-    const { noteItemList } = this.state;
+    const { noteItems } = this.state;
 
-    let currentList = noteItemList.map(item => (
+    let currentList = noteItems.map(item => (
       <li>
         <input id={item.id} onChange={this.handleChange} value={item.text} />
       </li>
@@ -55,8 +55,8 @@ class CreateNote extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const { addNote } = this.props;
-    const { title, noteItemList } = this.state;
-    addNote({ title, noteItemList });
+    const { title, noteItems } = this.state;
+    addNote({ title, noteItems });
   };
 
   render() {

@@ -1,8 +1,8 @@
 import React from "react";
 import uuid from "uuid/v4";
-const NoteItemList = props => (
+const NoteItems = props => (
   <div>
-    {props.noteItemList.map(item => (
+    {props.noteItems.map(item => (
       <div key={uuid()} id={item.id}>
         {item.text}
       </div>
@@ -10,4 +10,4 @@ const NoteItemList = props => (
   </div>
 );
 
-export default NoteItemList;
+export default NoteItems;
