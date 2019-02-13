@@ -1,11 +1,11 @@
 import React from "react";
 import { NoteItems } from "../../";
 class NoteCard extends React.Component {
-  constructor({ note }) {
-    super(note);
+  constructor(props) {
+    super(props);
     this.state = {
-      title: note.title,
-      noteItems: note.noteItems
+      title: this.props.note.title,
+      noteItems: this.props.note.noteItems
     };
   }
 

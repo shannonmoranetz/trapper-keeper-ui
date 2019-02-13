@@ -8,44 +8,58 @@ class CreateNote extends React.Component {
     super(props);
     this.state = {
       title: "",
-      noteItems: [
-        { id: uuid(), text: "default" },
-        { id: uuid(), text: "default" }
-      ]
+      noteItems: [],
+      currentFocus: null
     };
   }
+
   handleChangeTitle = event => {
-    this.setState({ title: event.target.value });
+    this.setState({ title: event.target.value, currentFocus: null });
   };
-  handleChange = event => {
+
+  handleChangeNotes = event => {
     const { noteItems } = this.state;
     let tempNoteList = [...noteItems];
-    const { id, text } = event.target;
+    const { id, value } = event.target;
+
     tempNoteList.forEach(note => {
       if (note.id == event.target.id) {
         note.text = event.target.value;
       }
     });
+
     if (!tempNoteList.find(note => note.id == event.target.id)) {
-      tempNoteList.push({ id, text });
+      tempNoteList.push({ id, text: value });
     }
+
     this.setState({
-      noteItems: tempNoteList
+      noteItems: tempNoteList,
+      currentFocus: id
     });
   };
 
   getListItems() {
     const { noteItems } = this.state;
 
-    let currentList = noteItems.map(item => (
-      <li>
-        <input id={item.id} onChange={this.handleChange} value={item.text} />
-      </li>
-    ));
+    let currentList = noteItems.map(item => {
+      let newNode = (
+        <li key={uuid()}>
+          <input
+            key={uuid()}
+            autoFocus={item.id === this.state.currentFocus}
+            id={item.id}
+            onChange={this.handleChangeNotes}
+            value={item.text}
+          />
+        </li>
+      );
+
+      return newNode;
+    });
 
     currentList.push(
-      <li onChange={this.handleChange}>
-        <input id={uuid()} />
+      <li key={uuid()}>
+        <input key={uuid()} onChange={this.handleChangeNotes} id={uuid()} />
       </li>
     );
 
@@ -57,15 +71,22 @@ class CreateNote extends React.Component {
     const { addNote } = this.props;
     const { title, noteItems } = this.state;
     addNote({ title, noteItems });
+    this.setState({
+      title: "",
+      noteItems: [],
+      currentFocus: null
+    });
   };
 
   render() {
+    const { title } = this.state;
+
     return (
       this.props.canRender && (
         <form onSubmit={this.handleSubmit}>
           <label>
-            title
-            <input onChange={this.handleChangeTitle} />
+            Title
+            <input value={title} onChange={this.handleChangeTitle} />
           </label>
           <ul>{this.getListItems()}</ul>
           <button>Submit</button>
