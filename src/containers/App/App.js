@@ -9,14 +9,13 @@ class App extends Component {
     };
   }
   handleClick = () => this.setState({ showPopup: !this.state.showPopup });
-  addNote() {}
   render() {
     const { showPopup } = this.state;
     return (
       <div className="App">
         <h1 className="title">Trapper-Keeper</h1>
         <div onClick={this.handleClick}>Add Note</div>
-        <CreateNote canRender={showPopup} addNote={this.addNote} />
+        <CreateNote canRender={showPopup}  />
         <NoteArea />
       </div>
     );
