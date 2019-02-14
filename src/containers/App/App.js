@@ -10,17 +10,11 @@ class App extends Component {
       showPopup: false
     };
   }
+  
   componentDidMount = () => {
-    this.fetchNotesOnMount();
+    this.props.getNotes();
   };
 
-  fetchNotesOnMount = () => {
-    try {
-      this.props.getNotes("http://localhost:3001/notes");
-    } catch (error) {
-      console.log("you have an error", error);
-    }
-  };
 
   handleClick = () => this.setState({ showPopup: !this.state.showPopup });
   render() {

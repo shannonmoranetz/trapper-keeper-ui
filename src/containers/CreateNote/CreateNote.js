@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNote } from "../../actions";
+import { addNewNote } from "../../actions";
 import { postNote } from "../../thunks";
 import uuid from "uuid/v4";
 
@@ -69,10 +69,10 @@ class CreateNote extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // const { addNote } = this.props;
+    // const { addNewNote } = this.props;
     const { title, noteItems } = this.state;
     this.props.postNote({ title, noteItems, id: uuid() });
-    // addNote({ title, noteItems });
+    // addNewNote({ title, noteItems });
     this.setState({
       title: "",
       noteItems: [],
@@ -99,7 +99,7 @@ class CreateNote extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addNote: newNote => dispatch(addNote(newNote)),
+  addNewNote: newNote => dispatch(addNewNote(newNote)),
   postNote: newNote => dispatch(postNote(newNote))
 });
 
