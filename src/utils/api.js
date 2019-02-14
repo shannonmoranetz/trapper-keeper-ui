@@ -1,10 +1,10 @@
-export const fetchCall = async (url, options= {}) => {
-  const response = await fetch(url, options)
+export const fetchCall = async (url, option) => {
+  const response = await fetch(url, option);
   if (response.ok) {
-    const data = await response.json()
-    console.log('from fetch', data)
-    return data
+    const data = await response.json();
+    return data;
   } else {
-    throw new Error(`Error fetching, code: ${response.status}`)
+    throw new Error(`Error fetching, code: ${response.status}`);
   }
-}
+};
+
