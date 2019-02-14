@@ -1,4 +1,4 @@
-import { addAllNotes, setLoading, setError } from "../actions";
+import { addAllNotes, setLoading, setError, addNewNote } from "../actions";
 import { fetchCall } from "../utils/api";
 
 const baseUrl = "http://localhost:3001/notes";
@@ -26,8 +26,14 @@ export const getNotes = () => {
 
 export const postNote = newNote => {
   return async dispatch => {
-    const notes = await fetchCall(baseUrl, getOptions("POST", newNote));
-    dispatch(addAllNotes(notes));
+    try {
+      dispatch(setLoading(true));
+      let note = await fetchCall(baseUrl, getOptions("POST", newNote));
+      dispatch(setLoading(false));
+      dispatch(addNewNote(note));
+    } catch (error) {
+      dispatch(setError(error.message))
+    }
   };
 };
 

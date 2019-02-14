@@ -10,11 +10,10 @@ class App extends Component {
       showPopup: false
     };
   }
-  
+
   componentDidMount = () => {
     this.props.getNotes();
   };
-
 
   handleClick = () => this.setState({ showPopup: !this.state.showPopup });
   render() {
