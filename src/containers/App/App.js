@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
+import PropTypes from "prop-types";
 
-class App extends Component {
+export class App extends Component {
   constructor() {
     super();
     this.state = {
       showPopup: false
     };
   }
-
+  
   componentDidMount = () => {
     this.props.getNotes();
   };
@@ -29,11 +30,15 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getNotes: url => dispatch(getNotes(url)),
+export const mapDispatchToProps = dispatch => ({
+  getNotes: () => dispatch(getNotes())
 });
 
 export default connect(
   null,
   mapDispatchToProps
 )(App);
+
+App.propTypes = {
+  getNotes: PropTypes.func
+};
