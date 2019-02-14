@@ -1,18 +1,26 @@
-import * as thunks  from './index';
-import { addNotes } from '../actions/index';
+import { getNotes, postNotes } from './index';
+import * as actions from '../actions';
+import { fetchCall } from '../utils/api';
 
-jest.mock('./index');
 
-describe('Thunks', () => {
-  beforeEach(() => {
-    let dispatchMock = jest.fn();
-  })
-  describe('getNotes', () => {
-    it('should call the fetchCall method with the correct params', () => {
-      
-    });
-    it ('should dispatch the addNotes action with the correct params', () => {
+describe("getNotes", () => {
+  let mockUrl;
+  let mockDispatch;
 
+  window.fetch = jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve("stuff"),
+      ok: true
     })
-  })
-})
+  );
+
+  beforeEach(() => {
+    mockDispatch = jest.fn();
+  });
+
+  it("calls dispatch with setLoading",  () => {
+    const thunk = getNotes();
+    thunk(mockDispatch);
+    expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
+  });
+});
