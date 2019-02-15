@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNewNote, updateNote, setCurrentNote, showPopUp } from "../../actions";
+import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
 import uuid from "uuid/v4";
 
@@ -71,9 +71,7 @@ class CreateNote extends React.Component {
     const { title, noteItems } = this.state;
     const { id: noteId } = this.props.currentNote;
     if (noteId) {
-      this.props.putNote({ title, noteItems, id: noteId});
-      this.props.setCurrentNote({});
-      this.props.showPopUp(false);
+      this.props.putNote({ title, noteItems, id: noteId });
     } else {
       this.props.postNote({ title, noteItems, id: uuid() });
     }
@@ -87,23 +85,20 @@ class CreateNote extends React.Component {
   render() {
     const { title } = this.state;
     return (
-      this.props.showPopUp && (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Title
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Title
             <input value={title} onChange={this.handleChangeTitle} />
-          </label>
-          <ul>{this.getListItems()}</ul>
-          <button>Submit</button>
-        </form>
-      )
+        </label>
+        <ul>{this.getListItems()}</ul>
+        <button>Submit</button>
+      </form>
     );
   }
 }
 
 export const mapStateToProps = state => ({
-  currentNote: state.currentNote,
-  shouldDisplay: state.shouldDisplay
+  currentNote: state.currentNote
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -111,8 +106,6 @@ const mapDispatchToProps = dispatch => ({
   postNote: newNote => dispatch(postNote(newNote)),
   putNote: updatedNote => dispatch(putNote(updatedNote)),
   updateNote: updatedNote => dispatch(updateNote(updatedNote)),
-  setCurrentNote: note => dispatch(setCurrentNote(note)),
-  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
 });
 
 export default connect(
