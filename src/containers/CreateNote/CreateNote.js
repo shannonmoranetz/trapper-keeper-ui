@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
@@ -98,7 +99,8 @@ class CreateNote extends React.Component {
 }
 
 export const mapStateToProps = state => ({
-  currentNote: state.currentNote
+  currentNote: state.currentNote,
+  shouldDisplay: state.shouldDisplay
 });
 
 const mapDispatchToProps = dispatch => ({

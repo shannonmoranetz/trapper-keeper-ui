@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
+import { withRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
-import { showPopUp } from '../../actions';
+import { Header } from '../Header/Header';
 
 export class App extends Component {
   constructor() {
@@ -16,35 +17,29 @@ export class App extends Component {
     this.props.getNotes();
   };
 
-  handleClick = () => {
-    this.props.showPopUp(!this.props.shouldDisplay);
-  }
-
   render() {
     return (
       <div className="App">
-        <h1 className="title">Trapper-Keeper</h1>
-        <div onClick={this.handleClick}>Add Note</div>
-        {this.props.shouldDisplay && <CreateNote />}
-        <NoteArea />
+        <Header />
+        <Route path='/' component={NoteArea} />
+        <Route path='/new-note' render={() => 
+          !this.props.shouldDisplay ?
+          <CreateNote /> :
+          <Redirect to='/' />
+          }/>
       </div>
     );
   }
 }
 
-export const mapStateToProps = state => ({
-  shouldDisplay: state.shouldDisplay
-});
-
 export const mapDispatchToProps = dispatch => ({
-  getNotes: () => dispatch(getNotes()),
-  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))  
+  getNotes: () => dispatch(getNotes())
 });
 
-export default connect(
-  mapStateToProps,
+export default withRouter(connect(
+  null,
   mapDispatchToProps
-)(App);
+)(App));
 
 App.propTypes = {
   getNotes: PropTypes.func
