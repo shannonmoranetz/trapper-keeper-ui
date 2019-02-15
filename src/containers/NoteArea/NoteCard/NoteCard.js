@@ -1,18 +1,25 @@
 import React from "react";
 import { NoteItems } from "../../";
-class NoteCard extends React.Component {
+import { connect } from 'react-redux';
+import { setCurrentNote, showPopUp } from '../../../actions';
+
+export class NoteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.note.title,
-      noteItems: this.props.note.noteItems
     };
+  }
+
+  handleClick = () => {
+    let { note, setCurrentNote, showPopUp } = this.props;
+    setCurrentNote(note);
+    showPopUp(true);
   }
 
   render() {
     const { title, noteItems } = this.props.note;
     return (
-      <div>
+      <div onClick={this.handleClick}>
         <h2>{title}</h2>
         <ul>
           <NoteItems noteItems={noteItems} />
@@ -22,4 +29,9 @@ class NoteCard extends React.Component {
   }
 }
 
-export default NoteCard;
+const mapDispatchToProps = dispatch => ({
+  setCurrentNote: note => dispatch(setCurrentNote(note)),
+  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
+});
+
+export default connect(null, mapDispatchToProps)(NoteCard);

@@ -1,10 +1,7 @@
 import { getNotes, postNotes } from './index';
 import * as actions from '../actions';
-import { fetchCall } from '../utils/api';
-
 
 describe("getNotes", () => {
-  let mockUrl;
   let mockDispatch;
 
   window.fetch = jest.fn().mockImplementation(() =>

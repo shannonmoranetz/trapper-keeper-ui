@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNewNote } from "../../actions";
-import { postNote } from "../../thunks";
+import { addNewNote, updateNote, setCurrentNote, showPopUp } from "../../actions";
+import { postNote, putNote } from "../../thunks";
 import uuid from "uuid/v4";
 
 class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      noteItems: [],
+      title: this.props.currentNote.title || '',
+      noteItems: this.props.currentNote.noteItems || [],
       currentFocus: null
     };
   }
@@ -41,7 +41,6 @@ class CreateNote extends React.Component {
 
   getListItems() {
     const { noteItems } = this.state;
-
     let currentList = noteItems.map(item => {
       let newNode = (
         <li key={uuid()}>
@@ -67,12 +66,17 @@ class CreateNote extends React.Component {
     return currentList;
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    // const { addNewNote } = this.props;
     const { title, noteItems } = this.state;
-    this.props.postNote({ title, noteItems, id: uuid() });
-    // addNewNote({ title, noteItems });
+    const { id: noteId } = this.props.currentNote;
+    if (noteId) {
+      this.props.putNote({ title, noteItems, id: noteId});
+      this.props.setCurrentNote({});
+      this.props.showPopUp(false);
+    } else {
+      this.props.postNote({ title, noteItems, id: uuid() });
+    }
     this.setState({
       title: "",
       noteItems: [],
@@ -82,9 +86,8 @@ class CreateNote extends React.Component {
 
   render() {
     const { title } = this.state;
-
     return (
-      this.props.canRender && (
+      this.props.showPopUp && (
         <form onSubmit={this.handleSubmit}>
           <label>
             Title
@@ -98,12 +101,21 @@ class CreateNote extends React.Component {
   }
 }
 
+export const mapStateToProps = state => ({
+  currentNote: state.currentNote,
+  shouldDisplay: state.shouldDisplay
+});
+
 const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
-  postNote: newNote => dispatch(postNote(newNote))
+  postNote: newNote => dispatch(postNote(newNote)),
+  putNote: updatedNote => dispatch(putNote(updatedNote)),
+  updateNote: updatedNote => dispatch(updateNote(updatedNote)),
+  setCurrentNote: note => dispatch(setCurrentNote(note)),
+  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CreateNote);

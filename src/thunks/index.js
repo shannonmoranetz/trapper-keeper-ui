@@ -1,4 +1,4 @@
-import { addAllNotes, setLoading, setError, addNewNote } from "../actions";
+import { addAllNotes, setLoading, setError, addNewNote, setCurrentNote, updateNote } from "../actions";
 import { fetchCall } from "../utils/api";
 
 const baseUrl = "http://localhost:3001/notes";
@@ -37,13 +37,20 @@ export const postNote = newNote => {
   };
 };
 
+export const putNote = updatedNote => {
+  return async dispatch => {
+    try {
+      dispatch(setLoading(true));
+      const note = await fetchCall(`${baseUrl}/${updatedNote.id}`, getOptions("PUT", updatedNote));
+      dispatch(setLoading(false));
+      dispatch(updateNote(note));
+    } catch (error)  {
+      dispatch(setError(error.message))
+    }
+  };
+};
+
 // export const deleteNote = newNote => {
-//   return async dispatch => {
-//     const notes = await fetchCall(`${baseUrl}/${newNote.id}`, getOptions("DELETE", newNote));
-//     dispatch(addNotes(notes));
-//   };
-// };
-// export const putNote = newNote => {
 //   return async dispatch => {
 //     const notes = await fetchCall(`${baseUrl}/${newNote.id}`, getOptions("DELETE", newNote));
 //     dispatch(addNotes(notes));

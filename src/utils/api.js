@@ -7,4 +7,3 @@ export const fetchCall = async (url, option) => {
     throw new Error(`Error fetching, code: ${response.status}, ${response.body}`);
   }
 };
-
