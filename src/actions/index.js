@@ -21,3 +21,15 @@ export const setError = error => ({
   type: SET_ERROR,
   error
 });
+
+export const UPDATE_NOTE = "UPDATE_NOTE";
+export const updateNote = note => ({
+  type: UPDATE_NOTE,
+  note
+});
+
+export const SHOW_POP_UP = "SHOW_POP_UP";
+export const showPopUp = shouldDisplay => ({
+  type: SHOW_POP_UP,
+  shouldDisplay
+});

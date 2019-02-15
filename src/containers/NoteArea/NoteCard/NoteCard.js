@@ -4,15 +4,18 @@ class NoteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.note.title,
-      noteItems: this.props.note.noteItems
     };
+  }
+
+  handleClick = () => {
+    let { note, updateNote } = this.props;
+    updateNote(note)
   }
 
   render() {
     const { title, noteItems } = this.props.note;
     return (
-      <div>
+      <div onClick={this.handleClick}>
         <h2>{title}</h2>
         <ul>
           <NoteItems noteItems={noteItems} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNewNote } from "../../actions";
+import { addNewNote, updateNote } from "../../actions";
 import { postNote } from "../../thunks";
 import uuid from "uuid/v4";
 
@@ -8,8 +8,8 @@ class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      noteItems: [],
+      title: this.props.currentNote.title || '',
+      noteItems: this.props.currentNote.items || [],
       currentFocus: null
     };
   }
@@ -84,7 +84,7 @@ class CreateNote extends React.Component {
     const { title } = this.state;
 
     return (
-      this.props.canRender && (
+      this.props.showPopUp && (
         <form onSubmit={this.handleSubmit}>
           <label>
             Title
@@ -98,12 +98,17 @@ class CreateNote extends React.Component {
   }
 }
 
+export const mapStateToProps = state => ({
+  currentNote: state.currentNote,
+  showPopUp: state.showPopUp
+});
+
 const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
   postNote: newNote => dispatch(postNote(newNote))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CreateNote);

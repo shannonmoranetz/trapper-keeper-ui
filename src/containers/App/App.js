@@ -8,7 +8,6 @@ export class App extends Component {
   constructor() {
     super();
     this.state = {
-      showPopup: false
     };
   }
   
@@ -16,14 +15,12 @@ export class App extends Component {
     this.props.getNotes();
   };
 
-  handleClick = () => this.setState({ showPopup: !this.state.showPopup });
   render() {
-    const { showPopup } = this.state;
     return (
       <div className="App">
         <h1 className="title">Trapper-Keeper</h1>
         <div onClick={this.handleClick}>Add Note</div>
-        <CreateNote canRender={showPopup} />
+        <CreateNote />
         <NoteArea />
       </div>
     );
