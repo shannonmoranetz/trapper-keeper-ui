@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   isLoading: loadingReducer,
   error: errorReducer,
   currentNote: currentNoteReducer,
-  showPopUp: showPopUpReducer
+  shouldDisplay: showPopUpReducer
 });
 
 export default rootReducer;

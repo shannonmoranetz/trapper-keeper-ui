@@ -33,3 +33,9 @@ export const showPopUp = shouldDisplay => ({
   type: SHOW_POP_UP,
   shouldDisplay
 });
+
+export const UPDATE_NOTE = "UPDATE_NOTE";
+export const updateNote = updatedNote => ({
+  type: UPDATE_NOTE,
+  updatedNote
+});
