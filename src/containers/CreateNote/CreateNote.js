@@ -9,7 +9,7 @@ class CreateNote extends React.Component {
     super(props);
     this.state = {
       title: this.props.currentNote.title || '',
-      noteItems: this.props.currentNote.items || [],
+      noteItems: this.props.currentNote.noteItems || [],
       currentFocus: null
     };
   }
@@ -82,7 +82,7 @@ class CreateNote extends React.Component {
 
   render() {
     const { title } = this.state;
-
+    console.log(this.props);
     return (
       this.props.showPopUp && (
         <form onSubmit={this.handleSubmit}>

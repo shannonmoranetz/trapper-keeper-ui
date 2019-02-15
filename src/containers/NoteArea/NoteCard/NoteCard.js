@@ -1,6 +1,9 @@
 import React from "react";
 import { NoteItems } from "../../";
-class NoteCard extends React.Component {
+import { connect } from 'react-redux';
+import { setCurrentNote, showPopUp } from '../../../actions';
+
+export class NoteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,8 +11,9 @@ class NoteCard extends React.Component {
   }
 
   handleClick = () => {
-    let { note, updateNote } = this.props;
-    updateNote(note)
+    let { note, setCurrentNote, showPopUp } = this.props;
+    setCurrentNote(note);
+    showPopUp(true);
   }
 
   render() {
@@ -25,4 +29,9 @@ class NoteCard extends React.Component {
   }
 }
 
-export default NoteCard;
+const mapDispatchToProps = dispatch => ({
+  setCurrentNote: note => dispatch(setCurrentNote(note)),
+  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
+});
+
+export default connect(null, mapDispatchToProps)(NoteCard);

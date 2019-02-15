@@ -20,19 +20,23 @@ export class App extends Component {
       <div className="App">
         <h1 className="title">Trapper-Keeper</h1>
         <div onClick={this.handleClick}>Add Note</div>
-        <CreateNote />
+        {this.props.showPopUp && <CreateNote />}
         <NoteArea />
       </div>
     );
   }
 }
 
+export const mapStateToProps = state => ({
+  showPopUp: state.showPopUp
+});
+
 export const mapDispatchToProps = dispatch => ({
   getNotes: () => dispatch(getNotes())
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
 

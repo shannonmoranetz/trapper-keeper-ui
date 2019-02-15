@@ -1,4 +1,4 @@
-import { addAllNotes, setLoading, setError, addNewNote, updateNote } from "../actions";
+import { addAllNotes, setLoading, setError, addNewNote, setCurrentNote } from "../actions";
 import { fetchCall } from "../utils/api";
 
 const baseUrl = "http://localhost:3001/notes";
@@ -43,7 +43,7 @@ export const putNote = newNote => {
       dispatch(setLoading(true));
       const note = await fetchCall(`${baseUrl}/${newNote.id}`, getOptions("PUT", newNote));
       dispatch(setLoading(false));
-      dispatch(updateNote(note));
+      dispatch(setCurrentNote(note));
     } catch (error)  {
       dispatch(setError(error.message))
     }
