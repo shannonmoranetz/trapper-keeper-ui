@@ -4,7 +4,7 @@ import { withRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
-import { Header } from '../Header/Header';
+import Header  from '../Header/Header';
 
 export class App extends Component {
   constructor() {
@@ -23,7 +23,7 @@ export class App extends Component {
         <Header />
         <Route path='/' component={NoteArea} />
         <Route path='/new-note' render={() => 
-          !this.props.shouldDisplay ?
+          this.props.shouldDisplay ?
           <CreateNote /> :
           <Redirect to='/' />
           }/>
@@ -32,12 +32,16 @@ export class App extends Component {
   }
 }
 
+export const mapStateToProps = state => ({
+  shouldDisplay: state.shouldDisplay
+});
+
 export const mapDispatchToProps = dispatch => ({
   getNotes: () => dispatch(getNotes())
 });
 
 export default withRouter(connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App));
 

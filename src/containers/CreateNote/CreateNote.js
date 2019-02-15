@@ -107,7 +107,7 @@ const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
   postNote: newNote => dispatch(postNote(newNote)),
   putNote: updatedNote => dispatch(putNote(updatedNote)),
-  updateNote: updatedNote => dispatch(updateNote(updatedNote)),
+  updateNote: updatedNote => dispatch(updateNote(updatedNote))
 });
 
 export default connect(

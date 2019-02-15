@@ -6,11 +6,11 @@ import { showPopUp } from '../../actions';
 export const Header = (props) => {
   return (
   <div className="Header">
-  {console.log(props)}
     <h1 className="title">Trapper-Keeper</h1>
     <Link to='/new-note' onClick={() => props.showPopUp(true)}>Add Note</Link>
   </div>
-)}
+  )
+}
 
 export const mapDispatchToProps = dispatch => ({
   showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
