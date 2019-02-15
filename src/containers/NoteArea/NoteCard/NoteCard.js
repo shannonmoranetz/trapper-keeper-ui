@@ -2,6 +2,7 @@ import React from "react";
 import { NoteItems } from "../../";
 import { connect } from 'react-redux';
 import { setCurrentNote, showPopUp } from '../../../actions';
+import {Link} from 'react-router-dom';
 
 export class NoteCard extends React.Component {
   constructor(props) {
@@ -19,12 +20,14 @@ export class NoteCard extends React.Component {
   render() {
     const { title, noteItems } = this.props.note;
     return (
-      <div onClick={this.handleClick}>
+     
+      <Link onClick={this.handleClick} to={`/notes/${this.props.currentNote.id}`}>
         <h2>{title}</h2>
         <ul>
           <NoteItems noteItems={noteItems} />
         </ul>
-      </div>
+      </Link>
+      
     );
   }
 }
@@ -34,4 +37,8 @@ const mapDispatchToProps = dispatch => ({
   showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
 });
 
-export default connect(null, mapDispatchToProps)(NoteCard);
+const mapStateToProps = state => ({
+  currentNote: state.currentNote
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteCard);

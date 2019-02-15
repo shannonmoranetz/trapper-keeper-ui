@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
-import { withRouter, Route, Redirect } from 'react-router-dom';
+import { withRouter, Route, Redirect, match } from 'react-router-dom';
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
@@ -27,13 +27,20 @@ export class App extends Component {
           <CreateNote /> :
           <Redirect to='/' />
           }/>
+        <Route path='/notes/:id' render={({match}) => {
+          const note = this.props.notes.find(note => note.id == match.params.id)
+          return <CreateNote match={match} {...note}/>
+        }}/>
+        
+        
       </div>
     );
   }
 }
 
 export const mapStateToProps = state => ({
-  shouldDisplay: state.shouldDisplay
+  shouldDisplay: state.shouldDisplay,
+  notes: state.notes
 });
 
 export const mapDispatchToProps = dispatch => ({
