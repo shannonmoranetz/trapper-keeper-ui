@@ -31,15 +31,13 @@ describe("getNotes", () => {
     expect(mockDispatch).toHaveBeenCalledWith(actions.addAllNotes('notes'));
   });
 
-  // ask about undefined status text
   it('should dispatch setError with an error message if the response is not ok', async () => {
     window.fetch = jest.fn().mockImplementation(() =>
     Promise.resolve({
-      statusText: 'Error fetching, code: undefined',
       ok: false
     }))
     const thunk = getNotes();
     await thunk(mockDispatch);
-    expect(mockDispatch).toHaveBeenCalledWith(actions.setError('Error fetching, code: undefined'));
+    expect(mockDispatch).toHaveBeenCalledWith(actions.setError('Error fetching notes'));
   });
 });

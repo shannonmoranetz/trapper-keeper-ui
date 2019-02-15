@@ -19,7 +19,7 @@ export const getNotes = () => {
       dispatch(setLoading(false));
       dispatch(addAllNotes(notes));
     } catch (error) {
-      dispatch(setError(error.message))
+      dispatch(setError('Error fetching notes'))
     }
   };
 };

@@ -4,7 +4,7 @@ export const fetchCall = async (url, option) => {
     const data = await response.json();
     return data;
   } else {
-    throw new Error(`Error fetching, code: ${response.status}`);
+    throw new Error(`Error fetching, code: ${response.status}, ${response.body}`);
   }
 };
 
