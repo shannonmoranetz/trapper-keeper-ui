@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
 
-class CreateNote extends React.Component {
+export class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,12 +24,12 @@ class CreateNote extends React.Component {
   
   handleChangeNoteItems = event => {
     const noteItemsCopy = this.makeCopy(this.state.noteItems);
-    const { id, value: newText } = event.target;
+    const { value: newText } = event.target;
+    const { id } = event.target.closest('label')
     const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
 
     if (matchedNoteItem) {
-      //We are mutating the actual object in the array here.
-      matchedNoteItem.text = newText;
+      matchedNoteItem.text = newText;     
     } else {
       const newListItem = { id, text: newText, isCompleted: false };
       noteItemsCopy.push(newListItem);
@@ -42,7 +42,21 @@ class CreateNote extends React.Component {
   };
 
   handleToggleIsComplete = event => {
-    const { value } = event.target;
+    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const { id } = event.target.closest('label')
+    const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
+
+    if(matchedNoteItem) {
+      matchedNoteItem.isCompleted = !matchedNoteItem.isCompleted
+    } else {
+      const newListItem = {id, text: '', isCompleted: event.target.checked}
+      noteItemsCopy.push(newListItem);
+    }
+
+    this.setState({
+      noteItems: noteItemsCopy,
+      currentFocus: id
+    })
   };
 
   getListItems() {
@@ -50,13 +64,15 @@ class CreateNote extends React.Component {
     let currentList = noteItems.map(item => {
       let jsxNoteItem = (
         <li key={uuid()}>
-          <input
-            key={item.id}
-            autoFocus={item.id === this.state.currentFocus}
-            id={item.id}
-            onChange={this.handleChangeNoteItems}
-            value={item.text}
-          />
+          <label id={item.id}>
+            <input type='checkbox' onChange={this.handleToggleIsComplete}/>
+            <input
+              key={item.id}
+              autoFocus={item.id === this.state.currentFocus}
+              onChange={this.handleChangeNoteItems}
+              value={item.text}
+            />
+          </label>
         </li>
       );
       return jsxNoteItem;
@@ -64,7 +80,10 @@ class CreateNote extends React.Component {
 
     currentList.push(
       <li key={uuid()}>
-        <input key={uuid()} onChange={this.handleChangeNoteItems} id={uuid()} />
+        <label id={uuid()}>
+          {/* <input type='checkbox' onChange={this.handleToggleIsComplete}/> */}
+          <input key={uuid()} onChange={this.handleChangeNoteItems} />
+        </label>
       </li>
     );
     return currentList;
@@ -98,7 +117,7 @@ class CreateNote extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
   postNote: newNote => dispatch(postNote(newNote)),
   putNote: updatedNote => dispatch(putNote(updatedNote)),
