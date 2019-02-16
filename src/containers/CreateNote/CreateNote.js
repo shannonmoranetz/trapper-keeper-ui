@@ -43,7 +43,7 @@ export class CreateNote extends React.Component {
 
   handleToggleIsComplete = event => {
     const noteItemsCopy = this.makeCopy(this.state.noteItems);
-    const { id } = event.target.closest('label')
+    const { id } = event.target.closest('label');
     const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
 
     if(matchedNoteItem) {
@@ -65,7 +65,7 @@ export class CreateNote extends React.Component {
       let jsxNoteItem = (
         <li key={uuid()}>
           <label id={item.id}>
-            <input type='checkbox' onChange={this.handleToggleIsComplete}/>
+            <input type='checkbox' onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
             <input
               key={item.id}
               autoFocus={item.id === this.state.currentFocus}
