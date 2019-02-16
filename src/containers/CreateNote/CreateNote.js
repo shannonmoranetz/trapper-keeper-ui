@@ -59,6 +59,16 @@ export class CreateNote extends React.Component {
     })
   };
 
+  handleItemDelete = (event) => {
+    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const { id } = event.target.closest('label');
+    const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
+    noteItemsCopy.splice(noteItemIndex, 1);
+    this.setState({ 
+      noteItems: noteItemsCopy
+    });
+  }
+
   getListItems() {
     const { noteItems } = this.state;
     let currentList = noteItems.map(item => {
@@ -72,6 +82,7 @@ export class CreateNote extends React.Component {
               onChange={this.handleChangeNoteItems}
               value={item.text}
             />
+            <button onClick={this.handleItemDelete}>x</button>
           </label>
         </li>
       );
@@ -81,7 +92,6 @@ export class CreateNote extends React.Component {
     currentList.push(
       <li key={uuid()}>
         <label id={uuid()}>
-          {/* <input type='checkbox' onChange={this.handleToggleIsComplete}/> */}
           <input key={uuid()} onChange={this.handleChangeNoteItems} />
         </label>
       </li>
