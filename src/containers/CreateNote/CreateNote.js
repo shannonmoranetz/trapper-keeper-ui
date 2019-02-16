@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
 import uuid from "uuid/v4";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class CreateNote extends React.Component {
   constructor(props) {
@@ -54,7 +54,6 @@ class CreateNote extends React.Component {
           />
         </li>
       );
-
       return newNode;
     });
 
@@ -63,15 +62,13 @@ class CreateNote extends React.Component {
         <input key={uuid()} onChange={this.handleChangeNotes} id={uuid()} />
       </li>
     );
-
     return currentList;
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { title, noteItems } = this.state;
     const { id: noteId, putNote, postNote } = this.props;
-
     if (noteId) {
       putNote({ title, noteItems, id: noteId });
     } else {
@@ -80,16 +77,14 @@ class CreateNote extends React.Component {
     this.setState({
       title: "",
       noteItems: [],
-      currentFocus: null,
-      hasSubmitted: true
+      currentFocus: null
     });
+    this.props.history.push('/');
   };
 
   render() {
-    const { title, hasSubmitted } = this.state;
-    return hasSubmitted ? (
-      <Redirect to="/" />
-    ) : (
+    const { title } = this.state;
+    return (
       <form onSubmit={this.handleSubmit}>
         <label>
           Title
@@ -109,7 +104,7 @@ const mapDispatchToProps = dispatch => ({
   updateNote: updatedNote => dispatch(updateNote(updatedNote))
 });
 
-export default connect(
+export default withRouter(connect(
   null,
   mapDispatchToProps
-)(CreateNote);
+)(CreateNote));
