@@ -1,16 +1,16 @@
 import React from "react";
-import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
 import uuid from "uuid/v4";
+import { Redirect } from "react-router-dom";
 
 class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.currentNote.title || '',
-      noteItems: this.props.currentNote.noteItems || [],
+      title: this.props.title || "",
+      noteItems: this.props.noteItems || [],
       currentFocus: null
     };
   }
@@ -25,12 +25,12 @@ class CreateNote extends React.Component {
     const { id, value } = event.target;
 
     tempNoteList.forEach(note => {
-      if (note.id == event.target.id) {
+      if (note.id === event.target.id) {
         note.text = event.target.value;
       }
     });
 
-    if (!tempNoteList.find(note => note.id == event.target.id)) {
+    if (!tempNoteList.find(note => note.id === event.target.id)) {
       tempNoteList.push({ id, text: value });
     }
 
@@ -67,29 +67,33 @@ class CreateNote extends React.Component {
     return currentList;
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { title, noteItems } = this.state;
-    const { id: noteId } = this.props.currentNote;
+    const { id: noteId, putNote, postNote } = this.props;
+
     if (noteId) {
-      this.props.putNote({ title, noteItems, id: noteId });
+      putNote({ title, noteItems, id: noteId });
     } else {
-      this.props.postNote({ title, noteItems, id: uuid() });
+      postNote({ title, noteItems, id: uuid() });
     }
     this.setState({
       title: "",
       noteItems: [],
-      currentFocus: null
+      currentFocus: null,
+      hasSubmitted: true
     });
   };
 
   render() {
-    const { title } = this.state;
-    return (
+    const { title, hasSubmitted } = this.state;
+    return hasSubmitted ? (
+      <Redirect to="/" />
+    ) : (
       <form onSubmit={this.handleSubmit}>
         <label>
           Title
-            <input value={title} onChange={this.handleChangeTitle} />
+          <input value={title} onChange={this.handleChangeTitle} />
         </label>
         <ul>{this.getListItems()}</ul>
         <button>Submit</button>
@@ -97,11 +101,6 @@ class CreateNote extends React.Component {
     );
   }
 }
-
-export const mapStateToProps = state => ({
-  currentNote: state.currentNote,
-  shouldDisplay: state.shouldDisplay
-});
 
 const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
@@ -111,6 +110,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CreateNote);

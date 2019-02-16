@@ -1,22 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { showPopUp } from '../../actions';
+import React from "react";
+import { Link } from "react-router-dom";
 
-export const Header = (props) => {
-  return (
+const Header = () => (
   <div className="Header">
     <h1 className="title">Trapper-Keeper</h1>
-    <Link to='/new-note' onClick={() => props.showPopUp(true)}>Add Note</Link>
+    <Link to="/new-note">Add Note</Link>
   </div>
-  )
-}
+);
 
-export const mapDispatchToProps = dispatch => ({
-  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Header);
+export default Header;

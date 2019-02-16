@@ -1,9 +1,9 @@
 import React from "react";
-import uuid from "uuid/v4";
-const NoteItems = props => (
+
+const NoteItems = ({ noteItems }) => (
   <div>
-    {props.noteItems.map(item => (
-      <div key={uuid()} id={item.id}>
+    {noteItems.map(item => (
+      <div key={item.id} id={item.id}>
         {item.text}
       </div>
     ))}

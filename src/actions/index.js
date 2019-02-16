@@ -22,18 +22,6 @@ export const setError = error => ({
   error
 });
 
-export const SET_CURRENT_NOTE = "SET_CURRENT_NOTE";
-export const setCurrentNote = note => ({
-  type: SET_CURRENT_NOTE,
-  note
-});
-
-export const SHOW_POP_UP = "SHOW_POP_UP";
-export const showPopUp = shouldDisplay => ({
-  type: SHOW_POP_UP,
-  shouldDisplay
-});
-
 export const UPDATE_NOTE = "UPDATE_NOTE";
 export const updateNote = updatedNote => ({
   type: UPDATE_NOTE,

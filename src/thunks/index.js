@@ -1,4 +1,10 @@
-import { addAllNotes, setLoading, setError, addNewNote, setCurrentNote, updateNote, showPopUp } from "../actions";
+import {
+  addAllNotes,
+  setLoading,
+  setError,
+  addNewNote,
+  updateNote
+} from "../actions";
 import { fetchCall } from "../utils/api";
 
 const baseUrl = "http://localhost:3001/notes";
@@ -19,7 +25,7 @@ export const getNotes = () => {
       dispatch(setLoading(false));
       dispatch(addAllNotes(notes));
     } catch (error) {
-      dispatch(setError('Error fetching notes'))
+      dispatch(setError("Error fetching notes"));
     }
   };
 };
@@ -29,11 +35,10 @@ export const postNote = newNote => {
     try {
       dispatch(setLoading(true));
       let note = await fetchCall(baseUrl, getOptions("POST", newNote));
-      dispatch(showPopUp(false));
       dispatch(setLoading(false));
       dispatch(addNewNote(note));
     } catch (error) {
-      dispatch(setError(error.message))
+      dispatch(setError(error.message));
     }
   };
 };
@@ -42,13 +47,14 @@ export const putNote = updatedNote => {
   return async dispatch => {
     try {
       dispatch(setLoading(true));
-      const note = await fetchCall(`${baseUrl}/${updatedNote.id}`, getOptions("PUT", updatedNote));
-      dispatch(setCurrentNote({}));
-      dispatch(showPopUp(false));
+      const note = await fetchCall(
+        `${baseUrl}/${updatedNote.id}`,
+        getOptions("PUT", updatedNote)
+      );
       dispatch(setLoading(false));
       dispatch(updateNote(note));
-    } catch (error)  {
-      dispatch(setError(error.message))
+    } catch (error) {
+      dispatch(setError(error.message));
     }
   };
 };
