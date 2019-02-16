@@ -108,7 +108,6 @@ export class CreateNote extends React.Component {
     } else {
       postNote({ title, noteItems, id: uuid() });
     }
-    
     this.props.history.push("/");
   };
 

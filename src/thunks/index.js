@@ -3,7 +3,8 @@ import {
   setLoading,
   setError,
   addNewNote,
-  updateNote
+  updateNote,
+  removeNote
 } from "../actions";
 import { fetchCall } from "../utils/api";
 
@@ -59,9 +60,15 @@ export const putNote = updatedNote => {
   };
 };
 
-// export const deleteNote = newNote => {
-//   return async dispatch => {
-//     const notes = await fetchCall(`${baseUrl}/${newNote.id}`, getOptions("DELETE", newNote));
-//     dispatch(addNotes(notes));
-//   };
-// };
+export const deleteNote = newNote => {
+  return async dispatch => {
+    try {
+      dispatch(setLoading(true));
+      await fetchCall(`${baseUrl}/${newNote.id}`, { method: 'DELETE' });
+      dispatch(setLoading(false));
+      dispatch(removeNote(newNote.id));
+    } catch (error) {
+      dispatch(setError(error.message));
+    }
+  };
+};

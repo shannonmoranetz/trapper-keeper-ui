@@ -27,3 +27,9 @@ export const updateNote = updatedNote => ({
   type: UPDATE_NOTE,
   updatedNote
 });
+
+export const DELETE_NOTE = "DELETE_NOTE";
+export const removeNote = deletedNoteId => ({
+  type: DELETE_NOTE,
+  deletedNoteId
+});
