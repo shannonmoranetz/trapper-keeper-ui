@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteItems should match the snapshot 1`] = `
+<div>
+  <div
+    id={1}
+    key="eceff1bd-94ee-4612-be8e-69ac120549bf"
+  >
+    Dylan
+  </div>
+  <div
+    id={2}
+    key="59b8a1ee-127d-49f7-812b-b1a57b489318"
+  >
+    Justin
+  </div>
+  <div
+    id={3}
+    key="ca50e34a-c13d-47f5-ac6e-20d9ee31b648"
+  >
+    Shannon
+  </div>
+</div>
+`;
