@@ -1,9 +1,10 @@
 import React from "react";
-import uuid from "uuid/v4";
-export const NoteItems = props => (
+import PropTypes from "prop-types";
+
+const NoteItems = ({ noteItems }) => (
   <div>
-    {props.noteItems.map(item => (
-      <div key={uuid()} id={item.id}>
+    {noteItems.map(item => (
+      <div key={item.id} id={item.id}>
         {item.text}
       </div>
     ))}
@@ -11,3 +12,7 @@ export const NoteItems = props => (
 );
 
 export default NoteItems;
+
+NoteItems.propTypes = {
+  noteItems: PropTypes.array
+};

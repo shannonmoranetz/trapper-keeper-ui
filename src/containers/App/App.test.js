@@ -27,28 +27,6 @@ describe("App", () => {
     expect(wrapper.instance().props.getNotes).toHaveBeenCalled();
   });
 
-  it("should have default state of false for showPopup", () => {
-    expect(wrapper.state("showPopup")).toBe(false);
-  });
-
-  describe("handleClick", () => {
-    it("should change showPopup to true when clicked", () => {
-      //execution
-      wrapper.instance().handleClick();
-
-      //expectation
-      expect(wrapper.state("showPopup")).toBe(true);
-    });
-    it("should change showPopup to false when clicked again", () => {
-      //execution
-      wrapper.instance().handleClick();
-      wrapper.instance().handleClick();
-
-      //expectation
-      expect(wrapper.state("showPopup")).toBe(false);
-    });
-  });
-
   describe("mapDispatchToProps", () => {
     let mockDispatch = jest.fn();
     let props = mapDispatchToProps(mockDispatch);

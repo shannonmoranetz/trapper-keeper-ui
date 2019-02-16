@@ -2,14 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
+import PropTypes from "prop-types";
 import uuid from "uuid/v4";
+import { withRouter } from "react-router-dom";
 
 class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.currentNote.title || '',
-      noteItems: this.props.currentNote.noteItems || [],
+      title: this.props.title || "",
+      noteItems: this.props.noteItems || [],
       currentFocus: null
     };
   }
@@ -24,12 +26,12 @@ class CreateNote extends React.Component {
     const { id, value } = event.target;
 
     tempNoteList.forEach(note => {
-      if (note.id == event.target.id) {
+      if (note.id === event.target.id) {
         note.text = event.target.value;
       }
     });
 
-    if (!tempNoteList.find(note => note.id == event.target.id)) {
+    if (!tempNoteList.find(note => note.id === event.target.id)) {
       tempNoteList.push({ id, text: value });
     }
 
@@ -53,7 +55,6 @@ class CreateNote extends React.Component {
           />
         </li>
       );
-
       return newNode;
     });
 
@@ -62,24 +63,24 @@ class CreateNote extends React.Component {
         <input key={uuid()} onChange={this.handleChangeNotes} id={uuid()} />
       </li>
     );
-
     return currentList;
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { title, noteItems } = this.state;
-    const { id: noteId } = this.props.currentNote;
+    const { id: noteId, putNote, postNote } = this.props;
     if (noteId) {
-      this.props.putNote({ title, noteItems, id: noteId });
+      putNote({ title, noteItems, id: noteId });
     } else {
-      this.props.postNote({ title, noteItems, id: uuid() });
+      postNote({ title, noteItems, id: uuid() });
     }
     this.setState({
       title: "",
       noteItems: [],
       currentFocus: null
     });
+    this.props.history.push('/');
   };
 
   render() {
@@ -88,7 +89,7 @@ class CreateNote extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Title
-            <input value={title} onChange={this.handleChangeTitle} />
+          <input value={title} onChange={this.handleChangeTitle} />
         </label>
         <ul>{this.getListItems()}</ul>
         <button>Submit</button>
@@ -97,18 +98,21 @@ class CreateNote extends React.Component {
   }
 }
 
-export const mapStateToProps = state => ({
-  currentNote: state.currentNote
-});
-
 const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
   postNote: newNote => dispatch(postNote(newNote)),
   putNote: updatedNote => dispatch(putNote(updatedNote)),
-  updateNote: updatedNote => dispatch(updateNote(updatedNote)),
+  updateNote: updatedNote => dispatch(updateNote(updatedNote))
 });
 
-export default connect(
-  mapStateToProps,
+export default withRouter(connect(
+  null,
   mapDispatchToProps
-)(CreateNote);
+)(CreateNote));
+
+CreateNote.propTypes = {
+  addNewNote: PropTypes.func,
+  postNote: PropTypes.func,
+  putNote: PropTypes.func,
+  updateNote: PropTypes.func
+}

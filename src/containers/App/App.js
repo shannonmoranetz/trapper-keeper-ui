@@ -1,51 +1,50 @@
 import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
+import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
-import { showPopUp } from '../../actions';
+import Header from "../Header/Header";
 
 export class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
-  
   componentDidMount = () => {
     this.props.getNotes();
   };
 
-  handleClick = () => {
-    this.props.showPopUp(!this.props.shouldDisplay);
-  }
+  findNote = ({ match }) => {
+    const { notes } = this.props;
+    const note = notes.find(note => note.id === match.params.id);
+    return <CreateNote {...note} />;
+  };
 
   render() {
     return (
       <div className="App">
-        <h1 className="title">Trapper-Keeper</h1>
-        <div onClick={this.handleClick}>Add Note</div>
-        {this.props.shouldDisplay && <CreateNote />}
-        <NoteArea />
+        <Route path="/" exact component={Header} />
+        <Route path="/" exact component={NoteArea} />
+        <Route path="/new-note" component={CreateNote} />
+        <Route path="/notes/:id" render={this.findNote} />
       </div>
     );
   }
 }
 
 export const mapStateToProps = state => ({
-  shouldDisplay: state.shouldDisplay
+  notes: state.notes
 });
 
 export const mapDispatchToProps = dispatch => ({
-  getNotes: () => dispatch(getNotes()),
-  showPopUp: shouldDisplay => dispatch(showPopUp(shouldDisplay))  
+  getNotes: () => dispatch(getNotes())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
 
 App.propTypes = {
-  getNotes: PropTypes.func
+  getNotes: PropTypes.func,
+  notes: PropTypes.array
 };
