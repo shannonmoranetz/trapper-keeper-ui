@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { NoteCard } from './NoteCard';
+import NoteCard from './NoteCard';
 
 describe('NoteCard', () => {
   let wrapper;

@@ -37,10 +37,11 @@ describe('fetchCall', () => {
 
   it('should throw an error if response not ok', async () => {
     //setup
-    const expectedError = Error('Error fetching, code: 404')
+    const expectedError = Error('Error fetching, code: 404, Could not Post')
     window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
       status: 404,
-      ok: false
+      ok: false,
+      body: 'Could not Post'//our fetchCall asks for a body... do we mock the body here?
     }))
     //execution & expectation
     await expect(fetchCall(mockURL, mockOptions)).rejects.toEqual(expectedError)

@@ -1,5 +1,6 @@
 import React from "react";
 import { NoteItems } from "../../";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const NoteCard = ({ note }) => (
@@ -12,3 +13,7 @@ const NoteCard = ({ note }) => (
 );
 
 export default NoteCard;
+
+NoteCard.propTypes = {
+  note: PropTypes.object
+};

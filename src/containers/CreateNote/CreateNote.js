@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { addNewNote, updateNote } from "../../actions";
 import { postNote, putNote } from "../../thunks";
+import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
 
@@ -108,3 +109,10 @@ export default withRouter(connect(
   null,
   mapDispatchToProps
 )(CreateNote));
+
+CreateNote.propTypes = {
+  addNewNote: PropTypes.func,
+  postNote: PropTypes.func,
+  putNote: PropTypes.func,
+  updateNote: PropTypes.func
+}

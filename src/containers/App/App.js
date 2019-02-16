@@ -46,5 +46,5 @@ export default withRouter(
 
 App.propTypes = {
   getNotes: PropTypes.func,
-  notes: PropTypes.object
+  notes: PropTypes.array
 };

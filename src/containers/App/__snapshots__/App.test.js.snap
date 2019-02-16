@@ -4,19 +4,23 @@ exports[`App should match snapshot and not error 1`] = `
 <div
   className="App"
 >
-  <h1
-    className="title"
-  >
-    Trapper-Keeper
-  </h1>
-  <div
-    onClick={[Function]}
-  >
-    Add Note
-  </div>
-  <Connect(CreateNote)
-    canRender={false}
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/"
   />
-  <Connect(NoteArea) />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/"
+  />
+  <Route
+    component={[Function]}
+    path="/new-note"
+  />
+  <Route
+    path="/notes/:id"
+    render={[Function]}
+  />
 </div>
 `;
