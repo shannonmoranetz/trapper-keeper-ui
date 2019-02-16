@@ -3,7 +3,7 @@ import { NoteItems } from "../../";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const NoteCard = ({ note }) => (
+export const NoteCard = ({ note }) => (
   <Link to={`/notes/${note.id}`}>
     <h2>{note.title}</h2>
     <ul>
@@ -11,8 +11,6 @@ const NoteCard = ({ note }) => (
     </ul>
   </Link>
 );
-
-export default NoteCard;
 
 NoteCard.propTypes = {
   note: PropTypes.object

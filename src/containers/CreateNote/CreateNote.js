@@ -20,53 +20,57 @@ class CreateNote extends React.Component {
     this.setState({ title: event.target.value, currentFocus: null });
   };
 
-  handleChangeNotes = event => {
-    const { noteItems } = this.state;
-    let tempNoteList = [...noteItems];
-    const { id, value } = event.target;
+  makeCopy = element => JSON.parse(JSON.stringify(element))
+  
+  handleChangeNoteItems = event => {
+    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const { id, value: newText } = event.target;
+    const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
 
-    tempNoteList.forEach(note => {
-      if (note.id === event.target.id) {
-        note.text = event.target.value;
-      }
-    });
-
-    if (!tempNoteList.find(note => note.id === event.target.id)) {
-      tempNoteList.push({ id, text: value });
+    if (matchedNoteItem) {
+      //We are mutating the actual object in the array here.
+      matchedNoteItem.text = newText;
+    } else {
+      const newListItem = { id, text: newText, isCompleted: false };
+      noteItemsCopy.push(newListItem);
     }
 
     this.setState({
-      noteItems: tempNoteList,
+      noteItems: noteItemsCopy,
       currentFocus: id
     });
+  };
+
+  handleToggleIsComplete = event => {
+    const { value } = event.target;
   };
 
   getListItems() {
     const { noteItems } = this.state;
     let currentList = noteItems.map(item => {
-      let newNode = (
+      let jsxNoteItem = (
         <li key={uuid()}>
           <input
-            key={uuid()}
+            key={item.id}
             autoFocus={item.id === this.state.currentFocus}
             id={item.id}
-            onChange={this.handleChangeNotes}
+            onChange={this.handleChangeNoteItems}
             value={item.text}
           />
         </li>
       );
-      return newNode;
+      return jsxNoteItem;
     });
 
     currentList.push(
       <li key={uuid()}>
-        <input key={uuid()} onChange={this.handleChangeNotes} id={uuid()} />
+        <input key={uuid()} onChange={this.handleChangeNoteItems} id={uuid()} />
       </li>
     );
     return currentList;
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { title, noteItems } = this.state;
     const { id: noteId, putNote, postNote } = this.props;
@@ -75,12 +79,8 @@ class CreateNote extends React.Component {
     } else {
       postNote({ title, noteItems, id: uuid() });
     }
-    this.setState({
-      title: "",
-      noteItems: [],
-      currentFocus: null
-    });
-    this.props.history.push('/');
+    
+    this.props.history.push("/");
   };
 
   render() {
@@ -105,14 +105,16 @@ const mapDispatchToProps = dispatch => ({
   updateNote: updatedNote => dispatch(updateNote(updatedNote))
 });
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps
-)(CreateNote));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(CreateNote)
+);
 
 CreateNote.propTypes = {
   addNewNote: PropTypes.func,
   postNote: PropTypes.func,
   putNote: PropTypes.func,
   updateNote: PropTypes.func
-}
+};
