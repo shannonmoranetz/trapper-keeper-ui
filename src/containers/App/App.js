@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { NoteArea, CreateNote } from "../";
-import { withRouter, Route, Redirect, match } from 'react-router-dom';
+import { withRouter, Route, Redirect } from "react-router-dom";
+import { setCurrentNote } from "../../actions";
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
-import Header  from '../Header/Header';
+import Header from "../Header/Header";
 
 export class App extends Component {
   constructor() {
     super();
-    this.state = {
-    };
+    this.state = {};
   }
-  
+
   componentDidMount = () => {
     this.props.getNotes();
   };
@@ -21,18 +21,19 @@ export class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Route path='/' component={NoteArea} />
-        <Route path='/new-note' render={() => 
-          this.props.shouldDisplay ?
-          <CreateNote /> :
-          <Redirect to='/' />
-          }/>
-        <Route path='/notes/:id' render={({match}) => {
-          const note = this.props.notes.find(note => note.id == match.params.id)
-          return <CreateNote match={match} {...note}/>
-        }}/>
-        
-        
+        <Route path="/" component={NoteArea} />
+        <Route
+          path="/new-note"
+          render={() =>
+            this.props.shouldDisplay ? <CreateNote /> : <Redirect to="/" />
+          }
+        />
+        <Route
+          path="/notes/:id"
+          render={() =>
+            this.props.shouldDisplay ? <CreateNote /> : <Redirect to="/" />
+          }
+        />
       </div>
     );
   }
@@ -44,13 +45,16 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  getNotes: () => dispatch(getNotes())
+  getNotes: () => dispatch(getNotes()),
+  setCurrentNote: note => dispatch(setCurrentNote(note))
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
 
 App.propTypes = {
   getNotes: PropTypes.func
