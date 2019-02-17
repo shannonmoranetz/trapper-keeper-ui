@@ -13,7 +13,7 @@ const styles = {
 }
 
 const Header = ({ classes }) => (
-  <AppBar>
+  <AppBar position='sticky'>
       <Typography variant='h1' align='center'>Trapper-Keeper</Typography>
       <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}><Link to="/new-note"><IconButton color='secondary'><AddIcon/></IconButton></Link></Tooltip>
   </AppBar>

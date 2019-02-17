@@ -4,24 +4,45 @@ import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { deleteNote } from '../../thunks';
 import { connect } from 'react-redux';
+import { Card, IconButton, CardHeader, CardContent } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 
-export const NoteCard = ({ note, deleteNote }) => (
-  <div>
-    <NavLink to='/' onClick={() => deleteNote(note)}>x</NavLink>
-    <Link to={`/notes/${note.id}`}>
-      <h2>{note.title}</h2>
+const styles = {
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+  card: {
+    margin: 10
+  }
+}
+
+export const NoteCard = ({ note, deleteNote, classes }) => (
+  <Card className={classes.card}>
+    <Link to={`/notes/${note.id}`} className={classes.link}>
+    <CardHeader title={note.title}
+      action={
+        <NavLink to='/' onClick={() => deleteNote(note)}>
+          <IconButton>
+            <img src='./images/trash-can-outline.svg' />
+          </IconButton>
+        </NavLink>
+      }
+    />
+    <CardContent>
       <ul>
         <NoteItems noteItems={note.noteItems} />
       </ul>
+    </CardContent>
     </Link>
-  </div>
+  </Card>
 );
 
 export const mapDispatchToProps = (dispatch) => ({
   deleteNote: (note) => dispatch(deleteNote(note))
 });
 
-export default connect(null, mapDispatchToProps)(NoteCard);
+export default withStyles(styles)(connect(null, mapDispatchToProps)(NoteCard));
 
 NoteCard.propTypes = {
   note: PropTypes.object,
