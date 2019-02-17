@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render without crashing 1`] = `
+<div
+  className="Header"
+>
+  <h1
+    className="title"
+  >
+    Trapper-Keeper
+  </h1>
+  <Link
+    replace={false}
+    to="/new-note"
+  >
+    Add Note
+  </Link>
+</div>
+`;
