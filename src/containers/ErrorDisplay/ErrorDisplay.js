@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 
 export const ErrorDisplay = (props) => {
   return (
@@ -7,6 +7,7 @@ export const ErrorDisplay = (props) => {
       <h2>Error 404</h2>
       <h3>Page not found.</h3>
       <p>The path localhost:/3000{props.location.pathname} was not found.</p>
+      <NavLink to='/'><button>Return Home</button></NavLink>
     </div>
   )
 };

@@ -25,7 +25,7 @@ export class App extends Component {
           <Route path="/" exact component={NoteArea} />
           <Route path="/new-note" component={CreateNote} />
           <Route path="/notes/:id" render={this.findNote} />
-          <Route render={(props) => <ErrorDisplay {...props} />}/>
+          <Route render={ErrorDisplay}/>
         </Switch>
       </div>
     );
