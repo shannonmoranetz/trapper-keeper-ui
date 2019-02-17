@@ -1,4 +1,4 @@
-import { getNotes, postNote } from './index';
+import { getNotes, postNote, putNote, deleteNote } from './index';
 import * as actions from '../actions';
 
 describe('Thunks', () => {
@@ -12,6 +12,7 @@ describe('Thunks', () => {
       })
     );
   });
+
   describe("getNotes", () => {
     let thunk;
     beforeEach(() => {
@@ -50,7 +51,7 @@ describe('Thunks', () => {
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
   
-    it('should dispatch setLoading(false) and addNewNote(note) if the response is ok', async () => {
+    it('should dispatch setLoading(false) and addNewNote(notes) if the response is ok', async () => {
       await thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(false));
       expect(mockDispatch).toHaveBeenCalledWith(actions.addNewNote('notes'));
@@ -61,9 +62,62 @@ describe('Thunks', () => {
       Promise.resolve({
         ok: false
       }))
-      const thunk = postNote();
       await thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setError('Error posting note'));
+    });
+  });
+
+  describe("putNote", () => {
+    let thunk;
+    beforeEach(() => {
+      thunk = putNote();
+    });
+  
+    it("calls dispatch with setLoading", () => {
+      thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
+    });
+  
+    it.skip('should dispatch setLoading(false) and updateNote(note) if the response is ok', async () => {
+      await thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(false));
+      expect(mockDispatch).toHaveBeenCalledWith(actions.updateNote('note'));
+    });
+  
+    it('should dispatch setError with an error message if the response is not ok', async () => {
+      window.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: false
+      }))
+      await thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setError('Error updating note'));
+    });
+  });
+
+  describe("deleteNote", () => {
+    let thunk;
+    beforeEach(() => {
+      thunk = deleteNote();
+    });
+  
+    it("calls dispatch with setLoading", () => {
+      thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
+    });
+  
+    it.skip('should dispatch setLoading(false) and deleteNote(note) if the response is ok', async () => {
+      await thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(false));
+      expect(mockDispatch).toHaveBeenCalledWith(actions.deleteNote('note'));
+    });
+  
+    it('should dispatch setError with an error message if the response is not ok', async () => {
+      window.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: false
+      }))
+      await thunk(mockDispatch);
+      expect(mockDispatch).toHaveBeenCalledWith(actions.setError('Error deleting note'));
     });
   });
 });

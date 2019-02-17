@@ -55,7 +55,7 @@ export const putNote = updatedNote => {
       dispatch(setLoading(false));
       dispatch(updateNote(note));
     } catch (error) {
-      dispatch(setError(error.message));
+      dispatch(setError('Error updating note'));
     }
   };
 };
@@ -68,7 +68,7 @@ export const deleteNote = newNote => {
       dispatch(setLoading(false));
       dispatch(removeNote(newNote.id));
     } catch (error) {
-      dispatch(setError(error.message));
+      dispatch(setError('Error deleting note'));
     }
   };
 };
