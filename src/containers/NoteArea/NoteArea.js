@@ -7,7 +7,7 @@ export const NoteArea = ({ notes }) => {
   return notes.map(note => <NoteCard key={note.id} note={note} />);
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   notes: state.notes
 });
 

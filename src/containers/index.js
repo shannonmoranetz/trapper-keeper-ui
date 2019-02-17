@@ -1,5 +1,5 @@
-import NoteCard from "./NoteArea/NoteCard/NoteCard";
-import {NoteItems} from "./NoteArea/NoteCard/NoteItems/NoteItems";
+import NoteCard from "./NoteCard/NoteCard";
+import { NoteItems } from "./NoteItems/NoteItems";
 import NoteArea from "./NoteArea/NoteArea";
 import CreateNote from "./CreateNote/CreateNote";
 

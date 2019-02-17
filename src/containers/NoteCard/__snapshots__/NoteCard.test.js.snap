@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteCard should match the snapshot 1`] = `
+<div>
+  <NavLink
+    activeClassName="active"
+    aria-current="page"
+    onClick={[Function]}
+    to="/"
+  >
+    x
+  </NavLink>
+  <Link
+    replace={false}
+    to="/notes/1"
+  >
+    <h2>
+      Best Note
+    </h2>
+    <ul>
+      <NoteItems
+        noteItems={
+          Array [
+            Object {
+              "text": "lala",
+            },
+            Object {
+              "text": "hooray",
+            },
+          ]
+        }
+      />
+    </ul>
+  </Link>
+</div>
+`;

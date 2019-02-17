@@ -4,7 +4,7 @@ import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
-import Header from "../Header/Header";
+import Header from "../../components/Header/Header";
 
 export class App extends Component {
   componentDidMount = () => {

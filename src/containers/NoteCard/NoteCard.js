@@ -1,8 +1,8 @@
 import React from "react";
-import { NoteItems } from "../../";
+import { NoteItems } from "../";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
-import { deleteNote } from '../../../thunks';
+import { deleteNote } from '../../thunks';
 import { connect } from 'react-redux';
 
 export const NoteCard = ({ note, deleteNote }) => (
