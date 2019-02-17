@@ -26,7 +26,7 @@ export const getNotes = () => {
       dispatch(setLoading(false));
       dispatch(addAllNotes(notes));
     } catch (error) {
-      dispatch(setError("Error fetching notes"));
+      dispatch(setError('Error fetching note'));
     }
   };
 };
@@ -39,7 +39,7 @@ export const postNote = newNote => {
       dispatch(setLoading(false));
       dispatch(addNewNote(note));
     } catch (error) {
-      dispatch(setError(error.message));
+      dispatch(setError('Error posting note'));
     }
   };
 };
