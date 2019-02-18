@@ -70,7 +70,7 @@ describe('Thunks', () => {
   describe("putNote", () => {
     let thunk;
     beforeEach(() => {
-      thunk = putNote();
+      thunk = putNote({id: 1});
     });
   
     it("calls dispatch with setLoading", () => {
@@ -78,10 +78,10 @@ describe('Thunks', () => {
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
   
-    it.skip('should dispatch setLoading(false) and updateNote(note) if the response is ok', async () => {
+    it('should dispatch setLoading(false) and updateNote(note) if the response is ok', async () => {
       await thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(false));
-      expect(mockDispatch).toHaveBeenCalledWith(actions.updateNote('note'));
+      expect(mockDispatch).toHaveBeenCalledWith(actions.updateNote('notes'));
     });
   
     it('should dispatch setError with an error message if the response is not ok', async () => {
@@ -97,7 +97,7 @@ describe('Thunks', () => {
   describe("deleteNote", () => {
     let thunk;
     beforeEach(() => {
-      thunk = deleteNote();
+      thunk = deleteNote({id: 2});
     });
   
     it("calls dispatch with setLoading", () => {
@@ -105,10 +105,10 @@ describe('Thunks', () => {
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
   
-    it.skip('should dispatch setLoading(false) and deleteNote(note) if the response is ok', async () => {
+    it('should dispatch setLoading(false) and removeNote(2) if the response is ok', async () => {
       await thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(false));
-      expect(mockDispatch).toHaveBeenCalledWith(actions.deleteNote('note'));
+      expect(mockDispatch).toHaveBeenCalledWith(actions.removeNote(2));
     });
   
     it('should dispatch setError with an error message if the response is not ok', async () => {
