@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { NoteArea, CreateNote } from "../";
-import { withRouter, Route } from "react-router-dom";
+import { NoteArea, CreateNote, ErrorDisplay } from "../";
+import { withRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { getNotes } from "../../thunks/";
 import PropTypes from "prop-types";
@@ -20,11 +20,13 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        {/*we still need to check for garbage urls */}
-        <Route path="/" exact component={Header} />
-        <Route path="/" exact component={NoteArea} />
-        <Route path="/new-note" component={CreateNote} />
-        <Route path="/notes/:id" render={this.findNote} />
+          <Route path="/" exact component={Header} />
+        <Switch> 
+          <Route path="/" exact component={NoteArea} />
+          <Route path="/new-note" component={CreateNote} />
+          <Route path="/notes/:id" render={this.findNote} />
+          <Route render={ErrorDisplay}/>
+        </Switch>
       </div>
     );
   }
