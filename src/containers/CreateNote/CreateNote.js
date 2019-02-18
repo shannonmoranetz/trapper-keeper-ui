@@ -16,7 +16,7 @@ export class CreateNote extends React.Component {
       noteItems: this.props.noteItems || [],
       currentFocus: null
     };
-  }
+  };
 
   handleChangeTitle = event => {
     this.setState({ title: event.target.value, currentFocus: null });
@@ -33,7 +33,7 @@ export class CreateNote extends React.Component {
       const newListItem = { id, text: newText, isCompleted: false };
       noteItemsCopy.push(newListItem);
     }
-    this.updateNoteItems(noteItemsCopy, id)
+    this.updateNoteItems(noteItemsCopy, id);
   };
 
   handleItemDelete = (event) => {
@@ -41,9 +41,7 @@ export class CreateNote extends React.Component {
     const { id } = event.target.closest('label');
     const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
     noteItemsCopy.splice(noteItemIndex, 1);
-    this.setState({ 
-      noteItems: noteItemsCopy
-    });
+    this.updateNoteItems(noteItemsCopy, id);
   };
 
   handleToggleIsComplete = event => {
@@ -68,9 +66,8 @@ export class CreateNote extends React.Component {
     });
   };
 
-  getListItems() {
-    const { noteItems } = this.state;
-    let currentList = noteItems.map(item => {
+  getListItems = () => {
+    let noteItems = this.state.noteItems.map(item => {
       let jsxNoteItem = (
         <ListItem key={uuid()}>
           <label id={item.id}>
@@ -83,14 +80,17 @@ export class CreateNote extends React.Component {
             />
             <IconButton onClick={this.handleItemDelete}>
             <Delete />
-            {/* <img src="./images/trash-can-outline.svg"/> */}
             </IconButton>
           </label>
         </ListItem>
       );
       return jsxNoteItem;
     });
+    return noteItems;
+  };
 
+  renderListItems = () => {
+    let currentList = this.getListItems();
     currentList.push(
       <ListItem key={uuid()}>
         <label id={uuid()}>
@@ -99,7 +99,7 @@ export class CreateNote extends React.Component {
       </ListItem>
     );
     return currentList;
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -118,19 +118,19 @@ export class CreateNote extends React.Component {
     let isOpen = this.props.location.pathname.includes('note')
     return (
       <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000}>
-      <DialogTitle>
-        <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
-      </DialogTitle>
-      <DialogContent>
-          <form onSubmit={this.handleSubmit}>
-            <List>{this.getListItems()}</List>
-            <Button type='submit'>Submit</Button>
-          </form>
-      </DialogContent>
-        </Dialog> 
+        <DialogTitle>
+          <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+        </DialogTitle>
+        <DialogContent>
+            <form onSubmit={this.handleSubmit}>
+              <List>{this.renderListItems()}</List>
+              <Button type='submit'>Submit</Button>
+            </form>
+        </DialogContent>
+      </Dialog> 
     );
-  }
-}
+  };
+};
 
 export const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
