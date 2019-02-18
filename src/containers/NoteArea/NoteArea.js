@@ -14,7 +14,7 @@ const styles = {
 
 export const NoteArea = ({ notes }) => {
        
-       const jsxNotes = notes.map(note => <Grid item xs={12} sm={6} md={4} lg={2}><NoteCard key={note.id} note={note} /></Grid>);
+  const jsxNotes = notes.map(note => <Grid item xs={12} sm={6} md={4} lg={2}><NoteCard key={note.id} note={note} /></Grid>);
   return (
     <Grid container justify='flex-start' alignItems='center'>
       {jsxNotes}

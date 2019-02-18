@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { deleteNote } from '../../thunks';
 import { connect } from 'react-redux';
 import { Card, IconButton, CardHeader, CardContent } from '@material-ui/core';
+import { DeleteOutline } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
@@ -24,7 +25,7 @@ export const NoteCard = ({ note, deleteNote, classes }) => (
       action={
         <NavLink to='/' onClick={() => deleteNote(note)}>
           <IconButton>
-            <img src='./images/trash-can-outline.svg' />
+            <DeleteOutline/>
           </IconButton>
         </NavLink>
       }
