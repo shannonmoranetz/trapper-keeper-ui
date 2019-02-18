@@ -36,7 +36,7 @@ export class CreateNote extends React.Component {
     this.updateNoteItems(noteItemsCopy, id);
   };
 
-  handleItemDelete = (event) => {
+  handleItemDelete = event => {
     const noteItemsCopy = this.makeCopy();
     const { id } = event.target.closest('label');
     const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
@@ -114,12 +114,11 @@ export class CreateNote extends React.Component {
   };
 
   render() {
-    const { title } = this.state;
     let isOpen = this.props.location.pathname.includes('note')
     return (
       <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000}>
         <DialogTitle>
-          <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+          <input value={this.state.title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
         </DialogTitle>
         <DialogContent>
             <form onSubmit={this.handleSubmit}>

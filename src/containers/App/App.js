@@ -29,8 +29,8 @@ export class App extends Component {
         </Switch>
       </div>
     );
-  }
-}
+  };
+};
 
 export const mapStateToProps = state => ({
   notes: state.notes
