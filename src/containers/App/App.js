@@ -20,6 +20,7 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
+
           <Route path="/" exact component={Header} />
         <Switch> 
           <Route path="/" exact component={NoteArea} />
@@ -27,6 +28,7 @@ export class App extends Component {
           <Route path="/notes/:id" render={this.findNote} />
           <Route render={ErrorDisplay}/>
         </Switch>
+
       </div>
     );
   };

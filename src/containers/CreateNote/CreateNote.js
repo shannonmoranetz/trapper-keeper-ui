@@ -114,19 +114,20 @@ export class CreateNote extends React.Component {
   };
 
   render() {
+    const { title } = this.state;
     let isOpen = this.props.location.pathname.includes('note')
     return (
-      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000}>
-        <DialogTitle>
-          <input value={this.state.title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
-        </DialogTitle>
-        <DialogContent>
-            <form onSubmit={this.handleSubmit}>
-              <List>{this.renderListItems()}</List>
-              <Button type='submit'>Submit</Button>
-            </form>
-        </DialogContent>
-      </Dialog> 
+      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} TransitionComponent={(props) => <Slide direction='up' {...props}/>}>
+      <DialogTitle>
+        <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+      </DialogTitle>
+      <DialogContent>
+          <form onSubmit={this.handleSubmit}>
+            <List>{this.getListItems()}</List>
+            <Button type='submit'>Submit</Button>
+          </form>
+      </DialogContent>
+        </Dialog> 
     );
   };
 };
