@@ -1,17 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Divider, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles';
 
-export const NoteItems = ({ noteItems }) => {
+const styles = {
+  divider: {
+    backgroundColor: 'red'
+  },
+  strikethrough: {
+    textDecoration: 'line-through'
+  }
+}
+
+export const NoteItems = ({ noteItems, classes }) => {
   const jsxItems = noteItems.map(item => (
-    <div key={item.id} id={item.id} iscompleted={JSON.stringify(item.isCompleted)}>
+    <Typography key={item.id} id={item.id} iscompleted={JSON.stringify(item.isCompleted)} className={item.isCompleted && classes.strikethrough}>
       {item.text}
-    </div>
+      <Divider light/>
+    </Typography>
   ))
   return (
   <div>
     {jsxItems.filter(item => (
       item.props.iscompleted === 'false'
     ))}
+    <Divider className={classes.divider}/>
     {jsxItems.filter(item => (
       item.props.iscompleted === 'true'
     ))}
@@ -22,3 +35,5 @@ export const NoteItems = ({ noteItems }) => {
 NoteItems.propTypes = {
   noteItems: PropTypes.array
 };
+
+export default withStyles(styles)(NoteItems)

@@ -21,8 +21,8 @@ export class App extends Component {
     return (
       <div className="App">
         {/*we still need to check for garbage urls */}
-        <Route path="/" exact component={Header} />
-        <Route path="/" exact component={NoteArea} />
+        <Route path="/"  component={Header} />
+        <Route path="/" component={NoteArea} />
         <Route path="/new-note" component={CreateNote} />
         <Route path="/notes/:id" render={this.findNote} />
       </div>

@@ -5,6 +5,8 @@ import { postNote, putNote } from "../../thunks";
 import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
+import { Dialog, DialogContent, DialogTitle, Typography, List, ListItem, ListItemText, Button, Checkbox, IconButton, Slide} from '@material-ui/core';
+import { Delete } from '@material-ui/icons'
 
 export class CreateNote extends React.Component {
   constructor(props) {
@@ -73,28 +75,31 @@ export class CreateNote extends React.Component {
     const { noteItems } = this.state;
     let currentList = noteItems.map(item => {
       let jsxNoteItem = (
-        <li key={uuid()}>
+        <ListItem key={uuid()}>
           <label id={item.id}>
-            <input type='checkbox' onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
+            <Checkbox onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
             <input
               key={item.id}
               autoFocus={item.id === this.state.currentFocus}
               onChange={this.handleChangeNoteItems}
               value={item.text}
             />
-            <button onClick={this.handleItemDelete}>x</button>
+            <IconButton onClick={this.handleItemDelete}>
+            <Delete />
+            {/* <img src="./images/trash-can-outline.svg"/> */}
+            </IconButton>
           </label>
-        </li>
+        </ListItem>
       );
       return jsxNoteItem;
     });
 
     currentList.push(
-      <li key={uuid()}>
+      <ListItem key={uuid()}>
         <label id={uuid()}>
           <input key={uuid()} onChange={this.handleChangeNoteItems} />
         </label>
-      </li>
+      </ListItem>
     );
     return currentList;
   }
@@ -113,15 +118,19 @@ export class CreateNote extends React.Component {
 
   render() {
     const { title } = this.state;
+    let isOpen = this.props.location.pathname.includes('note')
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title
-          <input value={title} onChange={this.handleChangeTitle} />
-        </label>
-        <ul>{this.getListItems()}</ul>
-        <button>Submit</button>
-      </form>
+      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} TransitionComponent={(props) => <Slide direction='up' {...props}/>}>
+      <DialogTitle>
+        <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+      </DialogTitle>
+      <DialogContent>
+          <form onSubmit={this.handleSubmit}>
+            <List>{this.getListItems()}</List>
+            <Button type='submit'>Submit</Button>
+          </form>
+      </DialogContent>
+        </Dialog> 
     );
   }
 }
