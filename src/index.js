@@ -8,6 +8,22 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#00bcd4'
+    },
+    secondary: {
+      main: '#ffb300'
+    },
+    error: {
+      main: '#bf360c'
+    }
+  }
+})
 
 const devTools = composeWithDevTools(applyMiddleware(thunk));
 const store = createStore(rootReducer, devTools)
@@ -15,9 +31,11 @@ const store = createStore(rootReducer, devTools)
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </BrowserRouter>
-  </Provider>, 
+  </Provider>,
   document.getElementById('root')
-  );
+);
 
