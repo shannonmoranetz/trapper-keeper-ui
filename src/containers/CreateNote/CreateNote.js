@@ -5,8 +5,8 @@ import { postNote, putNote } from "../../thunks";
 import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
-import { Dialog, DialogContent, DialogTitle, Typography, List, ListItem, ListItemText, Button, Checkbox, IconButton, Slide} from '@material-ui/core';
-import { Delete } from '@material-ui/icons'
+import { Dialog, DialogContent, DialogTitle, Typography, List, ListItem, ListItemText, Button, Checkbox, IconButton, Slide } from '@material-ui/core';
+import { DeleteOutline } from '@material-ui/icons'
 
 export class CreateNote extends React.Component {
   constructor(props) {
@@ -21,6 +21,10 @@ export class CreateNote extends React.Component {
   handleChangeTitle = event => {
     this.setState({ title: event.target.value, currentFocus: null });
   };
+
+
+  makeCopy = element => JSON.parse(JSON.stringify(element))
+
 
   handleChangeNoteItems = event => {
     const noteItemsCopy = this.makeCopy();
@@ -63,6 +67,17 @@ export class CreateNote extends React.Component {
     this.setState({
       noteItems: noteItemsCopy,
       currentFocus: id
+
+    })
+  };
+
+  handleItemDelete = (event) => {
+    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const { id } = event.target.closest('label');
+    const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
+    noteItemsCopy.splice(noteItemIndex, 1);
+    this.setState({
+      noteItems: noteItemsCopy
     });
   };
 
@@ -71,7 +86,7 @@ export class CreateNote extends React.Component {
       let jsxNoteItem = (
         <ListItem key={uuid()}>
           <label id={item.id}>
-            <Checkbox onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
+            <Checkbox onChange={this.handleToggleIsComplete} checked={item.isCompleted} />
             <input
               key={item.id}
               autoFocus={item.id === this.state.currentFocus}
@@ -79,7 +94,7 @@ export class CreateNote extends React.Component {
               value={item.text}
             />
             <IconButton onClick={this.handleItemDelete}>
-            <Delete />
+              <DeleteOutline />
             </IconButton>
           </label>
         </ListItem>
@@ -117,17 +132,17 @@ export class CreateNote extends React.Component {
     const { title } = this.state;
     let isOpen = this.props.location.pathname.includes('note')
     return (
-      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} TransitionComponent={(props) => <Slide direction='up' {...props}/>}>
-      <DialogTitle>
-        <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
-      </DialogTitle>
-      <DialogContent>
+      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} >
+        <DialogTitle>
+          <input value={title} onChange={this.handleChangeTitle} placeholder='Add a title' />
+        </DialogTitle>
+        <DialogContent>
           <form onSubmit={this.handleSubmit}>
             <List>{this.getListItems()}</List>
             <Button type='submit'>Submit</Button>
           </form>
-      </DialogContent>
-        </Dialog> 
+        </DialogContent>
+      </Dialog>
     );
   };
 };
@@ -152,3 +167,4 @@ CreateNote.propTypes = {
   putNote: PropTypes.func,
   updateNote: PropTypes.func
 };
+
