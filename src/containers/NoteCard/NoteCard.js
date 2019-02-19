@@ -4,38 +4,48 @@ import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { deleteNote } from '../../thunks';
 import { connect } from 'react-redux';
-import { Card, IconButton, CardHeader, CardContent } from '@material-ui/core';
+import { Card, IconButton, CardHeader, CardContent, Tooltip } from '@material-ui/core';
+import { DeleteOutline } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
   link: {
     textDecoration: 'none',
-    color: 'black',
   },
   card: {
-    margin: 10
+    margin: 10,
+  },
+  title: {
+    color: '#48494a',
   }
 }
 
 export const NoteCard = ({ note, deleteNote, classes }) => (
-  <Card className={classes.card}>
-    <Link to={`/notes/${note.id}`} className={classes.link}>
-    <CardHeader title={note.title} onClick={() => deleteNote(note)}
-      action={
-        <NavLink to='/' >
-          <IconButton>
-            <img src='./images/trash-can-outline.svg' alt="trash" />
-          </IconButton>
-        </NavLink>
-      }
-    />
-    <CardContent>
-      <ul>
-        <NoteItems noteItems={note.noteItems} />
-      </ul>
-    </CardContent>
-    </Link>
-  </Card>
+  <Tooltip title='Click to edit!' placement='top' enterDelay='2000'>
+    <Card className={classes.card}>
+      <Link to={`/notes/${note.id}`} className={classes.link}>
+         <CardHeader 
+          title={note.title}  
+          onClick={() => deleteNote(note)}
+          classes={{ title: classes.title }}
+          action={
+            <NavLink to='/' >
+              <Tooltip title='Delete Card!'>
+                <IconButton>
+                  <DeleteOutline />
+                </IconButton>
+              </Tooltip>
+            </NavLink>
+          }
+        />
+        <CardContent>
+          <ul>
+            <NoteItems noteItems={note.noteItems} />
+          </ul>
+        </CardContent>
+      </Link>
+    </Card>
+  </Tooltip>
 );
 
 export const mapDispatchToProps = (dispatch) => ({

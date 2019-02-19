@@ -5,9 +5,19 @@ import { postNote, putNote } from "../../thunks";
 import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
-import { Dialog, DialogContent, DialogTitle, Typography, List, ListItem, ListItemText, Button, Checkbox, IconButton, Slide} from '@material-ui/core';
-import { Delete } from '@material-ui/icons'
+import { Dialog, DialogContent, DialogTitle, List, ListItem, Button, Checkbox, IconButton, Input, Tooltip } from '@material-ui/core';
+import { DeleteOutline } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
+
+const styles = {
+  iconButton: {
+    margin: '5px'
+  },
+  formText: {
+    color: '#48494a'
+  }
+}
 export class CreateNote extends React.Component {
   constructor(props) {
     super(props);
@@ -18,9 +28,14 @@ export class CreateNote extends React.Component {
     };
   };
 
+  
   handleChangeTitle = event => {
     this.setState({ title: event.target.value, currentFocus: null });
   };
+
+
+  makeCopy = element => JSON.parse(JSON.stringify(element))
+
 
   handleChangeNoteItems = event => {
     const noteItemsCopy = this.makeCopy();
@@ -63,24 +78,45 @@ export class CreateNote extends React.Component {
     this.setState({
       noteItems: noteItemsCopy,
       currentFocus: id
+
+    })
+  };
+
+  handleItemDelete = (event) => {
+    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const { id } = event.target.closest('label');
+    const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
+    noteItemsCopy.splice(noteItemIndex, 1);
+    this.setState({
+      noteItems: noteItemsCopy
     });
   };
 
   getListItems = () => {
+    const { classes } = this.props;
     let noteItems = this.state.noteItems.map(item => {
       let jsxNoteItem = (
         <ListItem key={uuid()}>
           <label id={item.id}>
-            <Checkbox onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
-            <input
+            <Tooltip title='Mark item as complete' enterDelay='1000'>
+              <Checkbox 
+                onChange={this.handleToggleIsComplete} 
+                checked={item.isCompleted} />
+            </Tooltip>
+            <Input
               key={item.id}
               autoFocus={item.id === this.state.currentFocus}
               onChange={this.handleChangeNoteItems}
               value={item.text}
+              className={classes.formText}
             />
-            <IconButton onClick={this.handleItemDelete}>
-            <Delete />
-            </IconButton>
+            <Tooltip title='Delete note item!' enterDelay='1000'>
+              <IconButton 
+                onClick={this.handleItemDelete} 
+                className={classes.iconButton}>
+                <DeleteOutline />
+              </IconButton>
+            </Tooltip>
           </label>
         </ListItem>
       );
@@ -90,11 +126,15 @@ export class CreateNote extends React.Component {
   };
 
   renderListItems = () => {
+    const { classes } = this.props;
     let currentList = this.getListItems();
     currentList.push(
       <ListItem key={uuid()}>
         <label id={uuid()}>
-          <input key={uuid()} onChange={this.handleChangeNoteItems} />
+          <Input key={uuid()} 
+            onChange={this.handleChangeNoteItems} 
+            placeholder={'Add a note item'}
+            className={classes.formText}/>
         </label>
       </ListItem>
     );
@@ -114,19 +154,25 @@ export class CreateNote extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
+    const { title } = this.state;
     let isOpen = this.props.location.pathname.includes('note')
     return (
-      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000}>
+      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} disableBackdropClick={true}>
         <DialogTitle>
-          <input value={this.state.title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+          <Input 
+          value={title} 
+          onChange={this.handleChangeTitle} 
+          placeholder='Add a title'
+          className={classes.formText} />
         </DialogTitle>
         <DialogContent>
-            <form onSubmit={this.handleSubmit}>
-              <List>{this.renderListItems()}</List>
-              <Button type='submit'>Submit</Button>
-            </form>
+          <form onSubmit={this.handleSubmit}>
+            <List>{this.renderListItems()}</List>
+            <Button type='submit' className={classes.formText}>Submit</Button>
+          </form>
         </DialogContent>
-      </Dialog> 
+      </Dialog>
     );
   };
 };
@@ -139,11 +185,12 @@ export const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
+  withStyles(styles)(
   connect(
     null,
     mapDispatchToProps
   )(CreateNote)
-);
+));
 
 CreateNote.propTypes = {
   addNewNote: PropTypes.func,
@@ -151,3 +198,4 @@ CreateNote.propTypes = {
   putNote: PropTypes.func,
   updateNote: PropTypes.func
 };
+
