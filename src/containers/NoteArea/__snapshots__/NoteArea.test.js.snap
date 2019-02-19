@@ -8,7 +8,7 @@ exports[`NoteArea should render with no error and match snapshot 1`] = `
 >
   <WithStyles(Grid)
     item={true}
-    key="[object Object]"
+    key="82946377-b28c-40a2-8d75-fe7573bb50d2"
     lg={2}
     md={4}
     sm={6}
@@ -25,7 +25,7 @@ exports[`NoteArea should render with no error and match snapshot 1`] = `
   </WithStyles(Grid)>
   <WithStyles(Grid)
     item={true}
-    key="[object Object]"
+    key="948e9c82-cdcb-45a0-88a7-e09dd41a40dc"
     lg={2}
     md={4}
     sm={6}
