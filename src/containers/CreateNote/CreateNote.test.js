@@ -102,7 +102,7 @@ describe('CreateNote', () => {
     wrapper.find('WithStyles(Dialog)').dive().find('WithStyles(DialogContent)')
       .dive().find('form').simulate('submit', mockEvent)
       expect(postNote).toHaveBeenCalledWith({id:1, noteItems:mockNoteItems, title:''})
-  })
+  });
 
   it('should call handleSubmit on formSubmit for an existing note',() => {
     wrapper = shallow(<CreateNote location={{ pathname: 'a' }}
