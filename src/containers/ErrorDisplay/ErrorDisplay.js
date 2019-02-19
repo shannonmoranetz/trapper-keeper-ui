@@ -1,13 +1,14 @@
 import React from "react";
 import { withRouter, NavLink } from "react-router-dom";
+import { Button, Typography } from '@material-ui/core'
 
 export const ErrorDisplay = (props) => {
   return (
-    <div>
-      <h2>Error 404</h2>
-      <h3>Page not found.</h3>
-      <p>The path localhost:/3000{props.location.pathname} was not found.</p>
-      <NavLink to='/'><button>Return Home</button></NavLink>
+    <div className='errorDisplay'>
+      <Typography variant='h2'>Error 404</Typography>
+      <Typography variant='h3'>Page not found.</Typography>
+      <Typography variant='h4'>The path localhost:/3000{props.location.pathname} was not found.</Typography>
+      <NavLink to='/'><Button>Return Home</Button></NavLink>
     </div>
   )
 };

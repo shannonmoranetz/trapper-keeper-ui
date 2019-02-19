@@ -21,7 +21,7 @@ export class App extends Component {
     return (
       <div className="App">
 
-          <Route path="/" exact component={Header} />
+          <Route path="/" component={Header} />
         <Switch> 
           <Route path="/" exact component={NoteArea} />
           <Route path="/new-note" component={CreateNote} />
