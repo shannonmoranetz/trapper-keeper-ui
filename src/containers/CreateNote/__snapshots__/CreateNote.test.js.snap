@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNote should render with no error and match snapshot 1`] = `
+<WithStyles(Dialog)
+  onClose={[Function]}
+  open={false}
+  transitionDuration={1000}
+>
+  <WithStyles(DialogTitle)>
+    <input
+      onChange={[Function]}
+      placeholder="Add a title"
+      value=""
+    />
+  </WithStyles(DialogTitle)>
+  <WithStyles(DialogContent)>
+    <form
+      onSubmit={[Function]}
+    >
+      <WithStyles(List)>
+        <WithStyles(ListItem)>
+          <label>
+            <input
+              onChange={[Function]}
+            />
+          </label>
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+      <WithStyles(Button)
+        type="submit"
+      >
+        Submit
+      </WithStyles(Button)>
+    </form>
+  </WithStyles(DialogContent)>
+</WithStyles(Dialog)>
+`;
