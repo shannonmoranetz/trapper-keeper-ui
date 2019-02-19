@@ -1,5 +1,5 @@
-import React from "react";
-import { withRouter, NavLink } from "react-router-dom";
+import React from 'react';
+import { withRouter, NavLink } from 'react-router-dom';
 import { Button, Typography } from '@material-ui/core'
 
 export const ErrorDisplay = (props) => {

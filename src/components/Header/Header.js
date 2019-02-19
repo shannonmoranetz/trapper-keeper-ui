@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { withTheme, withStyles } from '@material-ui/core/styles'
 import { AppBar, Typography, IconButton, Tooltip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
@@ -25,7 +25,7 @@ export const Header = ({ classes }) => (
   <AppBar position='sticky' color='primary'>
     <Typography variant='display4' className={classes.title}>TrapperKeeper</Typography>
     <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}>
-      <Link to="/new-note">
+      <Link to='/new-note'>
         <IconButton color='secondary' className={classes.iconButton}>
           <AddIcon />
         </IconButton>

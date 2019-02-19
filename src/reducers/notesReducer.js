@@ -3,7 +3,7 @@ import {
   ADD_ALL_NOTES,
   UPDATE_NOTE,
   DELETE_NOTE
-} from "../actions";
+} from '../actions';
 
 export function notesReducer(state = [], action) {
   switch (action.type) {

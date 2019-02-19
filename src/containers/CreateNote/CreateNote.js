@@ -1,10 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { addNewNote, updateNote } from "../../actions";
-import { postNote, putNote } from "../../thunks";
-import PropTypes from "prop-types";
-import uuid from "uuid/v4";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { addNewNote, updateNote } from '../../actions';
+import { postNote, putNote } from '../../thunks';
+import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import { withRouter } from 'react-router-dom';
 import { Dialog, DialogContent, DialogTitle, List, ListItem, Button, Checkbox, IconButton, Input, Tooltip } from '@material-ui/core';
 import { DeleteOutline } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ export class CreateNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.title || "",
+      title: this.props.title || '',
       noteItems: this.props.noteItems || [],
       currentFocus: null
     };
@@ -147,7 +147,7 @@ export class CreateNote extends React.Component {
     } else {
       postNote({ title, noteItems, id: uuid() });
     }
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
   render() {

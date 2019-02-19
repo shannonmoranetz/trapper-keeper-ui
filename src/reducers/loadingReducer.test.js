@@ -1,5 +1,5 @@
-import { setLoading, setError } from "../actions";
-import { loadingReducer } from "./loadingReducer";
+import { setLoading, setError } from '../actions';
+import { loadingReducer } from './loadingReducer';
 
 describe('setLoadingReducer', () => {
   it('should return correct action type', () => {

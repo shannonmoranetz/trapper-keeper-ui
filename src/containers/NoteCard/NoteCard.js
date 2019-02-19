@@ -1,7 +1,7 @@
-import React from "react";
-import { NoteItems } from "../";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { NoteItems } from '../';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { deleteNote } from '../../thunks';
 import { connect } from 'react-redux';
 import { Card, IconButton, CardHeader, CardContent, Tooltip } from '@material-ui/core';

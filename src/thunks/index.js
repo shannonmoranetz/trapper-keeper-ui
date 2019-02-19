@@ -5,15 +5,15 @@ import {
   addNewNote,
   updateNote,
   removeNote
-} from "../actions";
-import { fetchCall } from "../utils/api";
+} from '../actions';
+import { fetchCall } from '../utils/api';
 
-const baseUrl = "http://localhost:3001/notes";
+const baseUrl = 'http://localhost:3001/notes';
 
 export const getOptions = (method, data) => ({
   method,
   headers: {
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify(data)
 });
@@ -35,7 +35,7 @@ export const postNote = newNote => {
   return async dispatch => {
     try {
       dispatch(setLoading(true));
-      let note = await fetchCall(baseUrl, getOptions("POST", newNote));
+      let note = await fetchCall(baseUrl, getOptions('POST', newNote));
       dispatch(setLoading(false));
       dispatch(addNewNote(note));
     } catch (error) {
@@ -50,7 +50,7 @@ export const putNote = updatedNote => {
       dispatch(setLoading(true));
       const note = await fetchCall(
         `${baseUrl}/${updatedNote.id}`,
-        getOptions("PUT", updatedNote)
+        getOptions('PUT', updatedNote)
       );
       dispatch(setLoading(false));
       dispatch(updateNote(note));

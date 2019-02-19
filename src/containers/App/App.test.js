@@ -1,46 +1,46 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { App, mapDispatchToProps, mapStateToProps } from "./App";
-import { getNotes } from "../../thunks";
-import { CreateNote } from "../";
+import React from 'react';
+import { shallow } from 'enzyme';
+import { App, mapDispatchToProps, mapStateToProps } from './App';
+import { getNotes } from '../../thunks';
+import { CreateNote } from '../';
 
-jest.mock("../../thunks");
+jest.mock('../../thunks');
 getNotes.mockReturnValue([
   {
-    title: "Hello",
-    noteItems: [{ text: "world", id: 4, isCompleted: "true" }],
+    title: 'Hello',
+    noteItems: [{ text: 'world', id: 4, isCompleted: 'true' }],
     id: 1
   },
   {
-    title: "Hello",
-    noteItems: [{ text: "world", id: 5, isCompleted: "false" }],
+    title: 'Hello',
+    noteItems: [{ text: 'world', id: 5, isCompleted: 'false' }],
     id: 2
   },
   {
-    title: "Hello",
-    noteItems: [{ text: "world", id: 6, isCompleted: "true" }],
+    title: 'Hello',
+    noteItems: [{ text: 'world', id: 6, isCompleted: 'true' }],
     id: 3
   }
 ]);
 
-describe("App", () => {
+describe('App', () => {
   let wrapper;
   window.fetch = jest.fn();
   beforeEach(() => {
     wrapper = shallow(<App getNotes={getNotes} notes={getNotes()} />);
   });
 
-  it("should match snapshot and not error", () => {
+  it('should match snapshot and not error', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("should call getNotes on componentDidMount", () => {
+  it('should call getNotes on componentDidMount', () => {
     expect(wrapper.instance().props.getNotes).toHaveBeenCalled();
   });
 
-  describe("findNote", () => {
+  describe('findNote', () => {
 
-    it("should return the matched item", () => {
+    it('should return the matched item', () => {
       //setup
       const note = getNotes()[0];
       const expected = <CreateNote {...note} />;
@@ -54,9 +54,9 @@ describe("App", () => {
     });
   });
 
-  describe("mapStateToProps", () => {
+  describe('mapStateToProps', () => {
     //setup
-    let mockState = { notes: getNotes(), notThis: "Not this" };
+    let mockState = { notes: getNotes(), notThis: 'Not this' };
     let expected = getNotes();
 
     //execution
@@ -66,11 +66,11 @@ describe("App", () => {
     expect(props.notes).toEqual(expected);
   });
 
-  describe("mapDispatchToProps", () => {
+  describe('mapDispatchToProps', () => {
     let mockDispatch = jest.fn();
     let props = mapDispatchToProps(mockDispatch);
 
-    it("should call dispatch with correct params", () => {
+    it('should call dispatch with correct params', () => {
       //setup
       const expected = getNotes();
 

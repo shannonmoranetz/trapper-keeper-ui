@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import { CreateNote } from './CreateNote';
 import {mapDispatchToProps} from './CreateNote'
 import * as actions from '../../actions'
-import { postNote, putNote } from "../../thunks";
-import uuid from "uuid/v4";
+import { postNote, putNote } from '../../thunks';
+import uuid from 'uuid/v4';
 
 jest.mock('../../thunks');
 jest.mock('uuid/v4');
@@ -29,7 +29,7 @@ describe('CreateNote', () => {
     wrapper.setState({ noteItems: mockNoteItems });
   });
 
-  it("should render with no error and match snapshot", () => {
+  it('should render with no error and match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 

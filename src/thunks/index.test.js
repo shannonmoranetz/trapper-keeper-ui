@@ -13,13 +13,13 @@ describe('Thunks', () => {
     );
   });
 
-  describe("getNotes", () => {
+  describe('getNotes', () => {
     let thunk;
     beforeEach(() => {
       thunk = getNotes();
     });
 
-    it("calls dispatch with setLoading", () => {
+    it('calls dispatch with setLoading', () => {
       thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
@@ -40,13 +40,13 @@ describe('Thunks', () => {
     });
   });
   
-  describe("postNote", () => {
+  describe('postNote', () => {
     let thunk;
     beforeEach(() => {
       thunk = postNote();
     });
   
-    it("calls dispatch with setLoading", () => {
+    it('calls dispatch with setLoading', () => {
       thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
@@ -67,13 +67,13 @@ describe('Thunks', () => {
     });
   });
 
-  describe("putNote", () => {
+  describe('putNote', () => {
     let thunk;
     beforeEach(() => {
       thunk = putNote({id: 1});
     });
   
-    it("calls dispatch with setLoading", () => {
+    it('calls dispatch with setLoading', () => {
       thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
@@ -94,13 +94,13 @@ describe('Thunks', () => {
     });
   });
 
-  describe("deleteNote", () => {
+  describe('deleteNote', () => {
     let thunk;
     beforeEach(() => {
       thunk = deleteNote({id: 2});
     });
   
-    it("calls dispatch with setLoading", () => {
+    it('calls dispatch with setLoading', () => {
       thunk(mockDispatch);
       expect(mockDispatch).toHaveBeenCalledWith(actions.setLoading(true));
     });
