@@ -21,7 +21,7 @@ const styles = {
 }
 
 export const NoteCard = ({ note, deleteNote, classes }) => (
-  <Tooltip title='Click to edit!' placment='top' enterDelay='3000'>
+  <Tooltip title='Click to edit!' placment='top' enterDelay='2000'>
     <Card className={classes.card}>
       <Link to={`/notes/${note.id}`} className={classes.link}>
         <CardHeader
