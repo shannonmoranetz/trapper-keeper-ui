@@ -5,6 +5,8 @@ import { postNote, putNote } from "../../thunks";
 import PropTypes from "prop-types";
 import uuid from "uuid/v4";
 import { withRouter } from "react-router-dom";
+import { Dialog, DialogContent, DialogTitle, Typography, List, ListItem, ListItemText, Button, Checkbox, IconButton, Slide} from '@material-ui/core';
+import { Delete } from '@material-ui/icons'
 
 export class CreateNote extends React.Component {
   constructor(props) {
@@ -14,90 +16,90 @@ export class CreateNote extends React.Component {
       noteItems: this.props.noteItems || [],
       currentFocus: null
     };
-  }
+  };
 
   handleChangeTitle = event => {
     this.setState({ title: event.target.value, currentFocus: null });
   };
 
-  makeCopy = element => JSON.parse(JSON.stringify(element))
-  
   handleChangeNoteItems = event => {
-    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+    const noteItemsCopy = this.makeCopy();
+    const { id } = event.target.closest('label');
     const { value: newText } = event.target;
-    const { id } = event.target.closest('label')
-    const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
-
+    const matchedNoteItem = this.findMatchingNoteItem(noteItemsCopy, id);
     if (matchedNoteItem) {
-      matchedNoteItem.text = newText;     
+      matchedNoteItem.text = newText;
     } else {
       const newListItem = { id, text: newText, isCompleted: false };
       noteItemsCopy.push(newListItem);
     }
-
-    this.setState({
-      noteItems: noteItemsCopy,
-      currentFocus: id
-    });
+    this.updateNoteItems(noteItemsCopy, id);
   };
 
-  handleToggleIsComplete = event => {
-    const noteItemsCopy = this.makeCopy(this.state.noteItems);
-    const { id } = event.target.closest('label');
-    const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
-
-    if(matchedNoteItem) {
-      matchedNoteItem.isCompleted = !matchedNoteItem.isCompleted
-    } else {
-      const newListItem = {id, text: '', isCompleted: event.target.checked}
-      noteItemsCopy.push(newListItem);
-    }
-
-    this.setState({
-      noteItems: noteItemsCopy,
-      currentFocus: id
-    })
-  };
-
-  handleItemDelete = (event) => {
-    const noteItemsCopy = this.makeCopy(this.state.noteItems);
+  handleItemDelete = event => {
+    const noteItemsCopy = this.makeCopy();
     const { id } = event.target.closest('label');
     const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
     noteItemsCopy.splice(noteItemIndex, 1);
-    this.setState({ 
-      noteItems: noteItemsCopy
-    });
-  }
+    this.updateNoteItems(noteItemsCopy, id);
+  };
 
-  getListItems() {
-    const { noteItems } = this.state;
-    let currentList = noteItems.map(item => {
+  handleToggleIsComplete = event => {
+    const noteItemsCopy = this.makeCopy();
+    const { id } = event.target.closest('label');
+    const matchedNoteItem = this.findMatchingNoteItem(noteItemsCopy, id);
+    matchedNoteItem.isCompleted = !matchedNoteItem.isCompleted;
+    this.updateNoteItems(noteItemsCopy, id);
+  };
+
+  makeCopy = () => JSON.parse(JSON.stringify(this.state.noteItems));
+
+  findMatchingNoteItem = (noteItemsCopy, id) => {
+    const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
+    return matchedNoteItem;
+  };
+
+  updateNoteItems = (noteItemsCopy, id) => {
+    this.setState({
+      noteItems: noteItemsCopy,
+      currentFocus: id
+    });
+  };
+
+  getListItems = () => {
+    let noteItems = this.state.noteItems.map(item => {
       let jsxNoteItem = (
-        <li key={uuid()}>
+        <ListItem key={uuid()}>
           <label id={item.id}>
-            <input type='checkbox' onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
+            <Checkbox onChange={this.handleToggleIsComplete} checked={item.isCompleted}/>
             <input
               key={item.id}
               autoFocus={item.id === this.state.currentFocus}
               onChange={this.handleChangeNoteItems}
               value={item.text}
             />
-            <button onClick={this.handleItemDelete}>x</button>
+            <IconButton onClick={this.handleItemDelete}>
+            <Delete />
+            </IconButton>
           </label>
-        </li>
+        </ListItem>
       );
       return jsxNoteItem;
     });
+    return noteItems;
+  };
 
+  renderListItems = () => {
+    let currentList = this.getListItems();
     currentList.push(
-      <li key={uuid()}>
+      <ListItem key={uuid()}>
         <label id={uuid()}>
           <input key={uuid()} onChange={this.handleChangeNoteItems} />
         </label>
-      </li>
+      </ListItem>
     );
     return currentList;
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -112,19 +114,22 @@ export class CreateNote extends React.Component {
   };
 
   render() {
-    const { title } = this.state;
+    let isOpen = this.props.location.pathname.includes('note')
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title
-          <input value={title} onChange={this.handleChangeTitle} />
-        </label>
-        <ul>{this.getListItems()}</ul>
-        <button>Submit</button>
-      </form>
+      <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000}>
+        <DialogTitle>
+          <input value={this.state.title} onChange={this.handleChangeTitle} placeholder='Add a title'/>
+        </DialogTitle>
+        <DialogContent>
+            <form onSubmit={this.handleSubmit}>
+              <List>{this.renderListItems()}</List>
+              <Button type='submit'>Submit</Button>
+            </form>
+        </DialogContent>
+      </Dialog> 
     );
-  }
-}
+  };
+};
 
 export const mapDispatchToProps = dispatch => ({
   addNewNote: newNote => dispatch(addNewNote(newNote)),
