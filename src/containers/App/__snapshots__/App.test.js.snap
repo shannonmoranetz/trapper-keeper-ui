@@ -9,18 +9,23 @@ exports[`App should match snapshot and not error 1`] = `
     exact={true}
     path="/"
   />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/"
-  />
-  <Route
-    component={[Function]}
-    path="/new-note"
-  />
-  <Route
-    path="/notes/:id"
-    render={[Function]}
-  />
+  <Switch>
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/"
+    />
+    <Route
+      component={[Function]}
+      path="/new-note"
+    />
+    <Route
+      path="/notes/:id"
+      render={[Function]}
+    />
+    <Route
+      render={[Function]}
+    />
+  </Switch>
 </div>
 `;

@@ -1,22 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NoteArea should render with no error and match snapshot 1`] = `
-Array [
-  <Connect(NoteCard)
-    key="1"
-    note={
-      Object {
-        "id": 1,
+<WithStyles(Grid)
+  alignItems="center"
+  container={true}
+  justify="flex-start"
+>
+  <WithStyles(Grid)
+    item={true}
+    key="[object Object]"
+    lg={2}
+    md={4}
+    sm={6}
+    xs={12}
+  >
+    <WithStyles(Connect(NoteCard))
+      key="1"
+      note={
+        Object {
+          "id": 1,
+        }
       }
-    }
-  />,
-  <Connect(NoteCard)
-    key="2"
-    note={
-      Object {
-        "id": 2,
+    />
+  </WithStyles(Grid)>
+  <WithStyles(Grid)
+    item={true}
+    key="[object Object]"
+    lg={2}
+    md={4}
+    sm={6}
+    xs={12}
+  >
+    <WithStyles(Connect(NoteCard))
+      key="2"
+      note={
+        Object {
+          "id": 2,
+        }
       }
-    }
-  />,
-]
+    />
+  </WithStyles(Grid)>
+</WithStyles(Grid)>
 `;

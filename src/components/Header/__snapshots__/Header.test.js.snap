@@ -1,19 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render without crashing 1`] = `
-<div
-  className="Header"
+<WithStyles(AppBar)
+  position="sticky"
 >
-  <h1
-    className="title"
+  <WithStyles(Typography)
+    align="center"
+    variant="h1"
   >
     Trapper-Keeper
-  </h1>
-  <Link
-    replace={false}
-    to="/new-note"
+  </WithStyles(Typography)>
+  <WithStyles(Tooltip)
+    className=""
+    placement="bottom-end"
+    title="Add a new note!"
   >
-    Add Note
-  </Link>
-</div>
+    <Link
+      replace={false}
+      to="/new-note"
+    >
+      <WithStyles(IconButton)
+        color="secondary"
+      >
+        <pure(AddIcon) />
+      </WithStyles(IconButton)>
+    </Link>
+  </WithStyles(Tooltip)>
+</WithStyles(AppBar)>
 `;
