@@ -17,26 +17,27 @@ const styles = {
   },
   title: {
     color: '#48494a',
+  },
+  delete: {
+    float: 'right',
+    margin: '3px'
   }
 }
 
 export const NoteCard = ({ note, deleteNote, classes }) => (
-  <Tooltip title='Click to edit!' placement='top' enterDelay='2000'>
+  <Tooltip title='Click to edit!' placement='top' enterDelay={2000}>
     <Card className={classes.card}>
+      <Link to='/' className={classes.delete}>
+        <Tooltip title='Delete this note!'>
+          <IconButton onClick={() => deleteNote(note)}>
+            <DeleteOutline />
+          </IconButton>
+        </Tooltip>
+      </Link>
       <Link to={`/notes/${note.id}`} className={classes.link}>
-         <CardHeader 
-          title={note.title}  
-          onClick={() => deleteNote(note)}
+        <CardHeader
+          title={note.title}
           classes={{ title: classes.title }}
-          action={
-            <NavLink to='/' >
-              <Tooltip title='Delete Card!'>
-                <IconButton>
-                  <DeleteOutline />
-                </IconButton>
-              </Tooltip>
-            </NavLink>
-          }
         />
         <CardContent>
           <ul>

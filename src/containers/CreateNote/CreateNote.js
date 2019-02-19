@@ -95,7 +95,7 @@ export class CreateNote extends React.Component {
       let jsxNoteItem = (
         <ListItem key={uuid()}>
           <label id={item.id}>
-            <Tooltip title='Mark item as complete' enterDelay='1000'>
+            <Tooltip title='Mark item as complete' enterDelay={1000}>
               <Checkbox 
                 onChange={this.handleToggleIsComplete} 
                 checked={item.isCompleted} />
@@ -107,7 +107,7 @@ export class CreateNote extends React.Component {
               value={item.text}
               className={classes.formText}
             />
-            <Tooltip title='Delete note item!' enterDelay='1000'>
+            <Tooltip title='Delete note item!' enterDelay={1000}>
               <IconButton 
                 onClick={this.handleItemDelete} 
                 className={classes.iconButton}>
