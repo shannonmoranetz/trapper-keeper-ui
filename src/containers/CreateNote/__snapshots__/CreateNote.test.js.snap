@@ -2,12 +2,13 @@
 
 exports[`CreateNote should render with no error and match snapshot 1`] = `
 <WithStyles(Dialog)
+  disableBackdropClick={true}
   onClose={[Function]}
   open={false}
   transitionDuration={1000}
 >
   <WithStyles(DialogTitle)>
-    <input
+    <WithStyles(Input)
       onChange={[Function]}
       placeholder="Add a title"
       value=""
@@ -18,10 +19,84 @@ exports[`CreateNote should render with no error and match snapshot 1`] = `
       onSubmit={[Function]}
     >
       <WithStyles(List)>
-        <WithStyles(ListItem)>
-          <label>
-            <input
+        <WithStyles(ListItem)
+          key="1"
+        >
+          <label
+            id={1}
+          >
+            <WithStyles(Tooltip)
+              enterDelay="1000"
+              title="Mark item as complete"
+            >
+              <WithStyles(Checkbox)
+                checked={false}
+                onChange={[Function]}
+              />
+            </WithStyles(Tooltip)>
+            <WithStyles(Input)
+              autoFocus={false}
+              key="1"
               onChange={[Function]}
+              value="mockTitle"
+            />
+            <WithStyles(Tooltip)
+              enterDelay="1000"
+              title="Delete note item!"
+            >
+              <WithStyles(IconButton)
+                className=""
+                onClick={[Function]}
+              >
+                <pure(DeleteOutlineIcon) />
+              </WithStyles(IconButton)>
+            </WithStyles(Tooltip)>
+          </label>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          key="1"
+        >
+          <label
+            id={2}
+          >
+            <WithStyles(Tooltip)
+              enterDelay="1000"
+              title="Mark item as complete"
+            >
+              <WithStyles(Checkbox)
+                checked={false}
+                onChange={[Function]}
+              />
+            </WithStyles(Tooltip)>
+            <WithStyles(Input)
+              autoFocus={false}
+              key="2"
+              onChange={[Function]}
+              value="mockTitle2"
+            />
+            <WithStyles(Tooltip)
+              enterDelay="1000"
+              title="Delete note item!"
+            >
+              <WithStyles(IconButton)
+                className=""
+                onClick={[Function]}
+              >
+                <pure(DeleteOutlineIcon) />
+              </WithStyles(IconButton)>
+            </WithStyles(Tooltip)>
+          </label>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          key="1"
+        >
+          <label
+            id={1}
+          >
+            <WithStyles(Input)
+              key="1"
+              onChange={[Function]}
+              placeholder="Add a note item"
             />
           </label>
         </WithStyles(ListItem)>

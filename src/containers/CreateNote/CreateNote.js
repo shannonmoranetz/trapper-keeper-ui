@@ -76,7 +76,6 @@ export class CreateNote extends React.Component {
     this.setState({
       noteItems: noteItemsCopy,
       currentFocus: id
-
     })
   };
 

@@ -7,6 +7,11 @@ exports[`NoteItems should match the snapshot 1`] = `
     id={3}
     iscompleted="false"
     key="3"
+    style={
+      Object {
+        "color": "#48494a",
+      }
+    }
   >
     Shannon
     <WithStyles(Divider)
@@ -20,6 +25,11 @@ exports[`NoteItems should match the snapshot 1`] = `
     id={1}
     iscompleted="true"
     key="1"
+    style={
+      Object {
+        "color": "#48494a",
+      }
+    }
   >
     Dylan
     <WithStyles(Divider)
@@ -30,6 +40,11 @@ exports[`NoteItems should match the snapshot 1`] = `
     id={2}
     iscompleted="true"
     key="2"
+    style={
+      Object {
+        "color": "#48494a",
+      }
+    }
   >
     Justin
     <WithStyles(Divider)

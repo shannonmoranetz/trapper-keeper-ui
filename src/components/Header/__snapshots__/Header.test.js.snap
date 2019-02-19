@@ -2,13 +2,13 @@
 
 exports[`should render without crashing 1`] = `
 <WithStyles(AppBar)
+  color="primary"
   position="sticky"
 >
   <WithStyles(Typography)
-    align="center"
     variant="h1"
   >
-    Trapper-Keeper
+    TrapperKeeper
   </WithStyles(Typography)>
   <WithStyles(Tooltip)
     className=""
