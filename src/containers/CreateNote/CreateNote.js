@@ -93,6 +93,7 @@ export class CreateNote extends React.Component {
   };
 
   getListItems = () => {
+    const { classes } = this.props;
     let noteItems = this.state.noteItems.map(item => {
       let jsxNoteItem = (
         <ListItem key={uuid()}>
@@ -125,6 +126,7 @@ export class CreateNote extends React.Component {
   };
 
   renderListItems = () => {
+    const { classes } = this.props;
     let currentList = this.getListItems();
     currentList.push(
       <ListItem key={uuid()}>
@@ -166,7 +168,7 @@ export class CreateNote extends React.Component {
         </DialogTitle>
         <DialogContent>
           <form onSubmit={this.handleSubmit}>
-            <List>{this.getListItems()}</List>
+            <List>{this.renderListItems()}</List>
             <Button type='submit' className={classes.formText}>Submit</Button>
           </form>
         </DialogContent>
