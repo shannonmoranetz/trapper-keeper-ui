@@ -22,9 +22,10 @@ describe("NoteCard", () => {
   it("should match the snapshot", () => {
     expect(wrapper).toMatchSnapshot();
   });
+
   it("should call delete note when clicked", () => {
     wrapper = shallow(<NoteCard note={mockNote} classes={{card:''}} deleteNote={deleteNoteMock} />)
-    wrapper.find("WithStyles(CardHeader)").simulate("click");
+    wrapper.find("WithStyles(IconButton)").simulate("click");
     expect(deleteNoteMock).toHaveBeenCalled();
   });
 

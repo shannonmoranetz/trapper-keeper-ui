@@ -2,7 +2,7 @@
 
 exports[`NoteCard should match the snapshot 1`] = `
 <WithStyles(Tooltip)
-  enterDelay="2000"
+  enterDelay={2000}
   placement="top"
   title="Click to edit!"
 >
@@ -11,30 +11,28 @@ exports[`NoteCard should match the snapshot 1`] = `
   >
     <Link
       replace={false}
+      to="/"
+    >
+      <WithStyles(Tooltip)
+        title="Delete this note!"
+      >
+        <WithStyles(IconButton)
+          onClick={[Function]}
+        >
+          <pure(DeleteOutlineIcon) />
+        </WithStyles(IconButton)>
+      </WithStyles(Tooltip)>
+    </Link>
+    <Link
+      replace={false}
       to="/notes/1"
     >
       <WithStyles(CardHeader)
-        action={
-          <NavLink
-            activeClassName="active"
-            aria-current="page"
-            to="/"
-          >
-            <WithStyles(Tooltip)
-              title="Delete Card!"
-            >
-              <WithStyles(IconButton)>
-                <pure(DeleteOutlineIcon) />
-              </WithStyles(IconButton)>
-            </WithStyles(Tooltip)>
-          </NavLink>
-        }
         classes={
           Object {
             "title": undefined,
           }
         }
-        onClick={[Function]}
         title="Best Note"
       />
       <WithStyles(CardContent)>

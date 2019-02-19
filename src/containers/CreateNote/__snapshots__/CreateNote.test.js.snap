@@ -26,7 +26,7 @@ exports[`CreateNote should render with no error and match snapshot 1`] = `
             id={1}
           >
             <WithStyles(Tooltip)
-              enterDelay="1000"
+              enterDelay={1000}
               title="Mark item as complete"
             >
               <WithStyles(Checkbox)
@@ -41,7 +41,7 @@ exports[`CreateNote should render with no error and match snapshot 1`] = `
               value="mockTitle"
             />
             <WithStyles(Tooltip)
-              enterDelay="1000"
+              enterDelay={1000}
               title="Delete note item!"
             >
               <WithStyles(IconButton)
@@ -60,7 +60,7 @@ exports[`CreateNote should render with no error and match snapshot 1`] = `
             id={2}
           >
             <WithStyles(Tooltip)
-              enterDelay="1000"
+              enterDelay={1000}
               title="Mark item as complete"
             >
               <WithStyles(Checkbox)
@@ -75,7 +75,7 @@ exports[`CreateNote should render with no error and match snapshot 1`] = `
               value="mockTitle2"
             />
             <WithStyles(Tooltip)
-              enterDelay="1000"
+              enterDelay={1000}
               title="Delete note item!"
             >
               <WithStyles(IconButton)

@@ -2,54 +2,63 @@
 
 exports[`NoteItems should match the snapshot 1`] = `
 <div>
-  <WithStyles(Typography)
-    className={false}
-    id={3}
+  <div
     iscompleted="false"
     key="3"
-    style={
-      Object {
-        "color": "#48494a",
-      }
-    }
   >
-    Shannon
+    <WithStyles(Typography)
+      className={false}
+      id={3}
+      style={
+        Object {
+          "color": "#48494a",
+        }
+      }
+    >
+      Shannon
+    </WithStyles(Typography)>
     <WithStyles(Divider)
       light={true}
     />
-  </WithStyles(Typography)>
+  </div>
   <WithStyles(Divider)
     className=""
   />
-  <WithStyles(Typography)
-    id={1}
+  <div
     iscompleted="true"
     key="1"
-    style={
-      Object {
-        "color": "#48494a",
-      }
-    }
   >
-    Dylan
+    <WithStyles(Typography)
+      id={1}
+      style={
+        Object {
+          "color": "#48494a",
+        }
+      }
+    >
+      Dylan
+    </WithStyles(Typography)>
     <WithStyles(Divider)
       light={true}
     />
-  </WithStyles(Typography)>
-  <WithStyles(Typography)
-    id={2}
+  </div>
+  <div
     iscompleted="true"
     key="2"
-    style={
-      Object {
-        "color": "#48494a",
-      }
-    }
   >
-    Justin
+    <WithStyles(Typography)
+      id={2}
+      style={
+        Object {
+          "color": "#48494a",
+        }
+      }
+    >
+      Justin
+    </WithStyles(Typography)>
     <WithStyles(Divider)
       light={true}
     />
-  </WithStyles(Typography)>
+  </div>
 </div>
 `;

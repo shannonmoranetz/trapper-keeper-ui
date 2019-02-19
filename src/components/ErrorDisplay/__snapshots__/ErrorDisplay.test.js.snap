@@ -1,25 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorDisplay should render with no error and match snapshot 1`] = `
-<div>
-  <h2>
+<div
+  className="errorDisplay"
+>
+  <WithStyles(Typography)
+    variant="display4"
+  >
     Error 404
-  </h2>
-  <h3>
+  </WithStyles(Typography)>
+  <WithStyles(Typography)
+    variant="display3"
+  >
     Page not found.
-  </h3>
-  <p>
+  </WithStyles(Typography)>
+  <WithStyles(Typography)
+    variant="display2"
+  >
     The path localhost:/3000
      was not found.
-  </p>
+  </WithStyles(Typography)>
   <NavLink
     activeClassName="active"
     aria-current="page"
     to="/"
   >
-    <button>
+    <WithStyles(Button)>
       Return Home
-    </button>
+    </WithStyles(Button)>
   </NavLink>
 </div>
 `;

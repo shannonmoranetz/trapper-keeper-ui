@@ -6,7 +6,7 @@ exports[`should render without crashing 1`] = `
   position="sticky"
 >
   <WithStyles(Typography)
-    variant="h1"
+    variant="display4"
   >
     TrapperKeeper
   </WithStyles(Typography)>

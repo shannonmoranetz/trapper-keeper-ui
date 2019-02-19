@@ -12,7 +12,7 @@ export function notesReducer(state = [], action) {
     case ADD_ALL_NOTES:
       return action.notes;
     case UPDATE_NOTE:
-      const index = state.findIndex(note => note.id == action.updatedNote.id);
+      const index = state.findIndex(note => note.id === action.updatedNote.id);
       let tempNotes = state.slice();
       tempNotes.splice(index, 1, action.updatedNote);
       return tempNotes;
