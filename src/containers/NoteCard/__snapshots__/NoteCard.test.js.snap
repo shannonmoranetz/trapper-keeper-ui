@@ -1,36 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NoteCard should match the snapshot 1`] = `
-<div>
-  <NavLink
-    activeClassName="active"
-    aria-current="page"
-    onClick={[Function]}
-    to="/"
-  >
-    x
-  </NavLink>
+<WithStyles(Card)
+  className=""
+>
   <Link
     replace={false}
     to="/notes/1"
   >
-    <h2>
-      Best Note
-    </h2>
-    <ul>
-      <NoteItems
-        noteItems={
-          Array [
-            Object {
-              "text": "lala",
-            },
-            Object {
-              "text": "hooray",
-            },
-          ]
-        }
-      />
-    </ul>
+    <WithStyles(CardHeader)
+      action={
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/"
+        >
+          <WithStyles(IconButton)>
+            <img
+              alt="trash"
+              src="./images/trash-can-outline.svg"
+            />
+          </WithStyles(IconButton)>
+        </NavLink>
+      }
+      onClick={[Function]}
+      title="Best Note"
+    />
+    <WithStyles(CardContent)>
+      <ul>
+        <WithStyles(NoteItems)
+          noteItems={
+            Array [
+              Object {
+                "text": "lala",
+              },
+              Object {
+                "text": "hooray",
+              },
+            ]
+          }
+        />
+      </ul>
+    </WithStyles(CardContent)>
   </Link>
-</div>
+</WithStyles(Card)>
 `;

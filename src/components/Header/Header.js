@@ -21,7 +21,7 @@ const styles = {
   }
 }
 
-const Header = ({ classes }) => (
+export const Header = ({ classes }) => (
   <AppBar position='sticky' color='primary'>
     <Typography variant='h1' className={classes.title}>TrapperKeeper</Typography>
     <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}>

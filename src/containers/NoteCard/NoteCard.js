@@ -21,14 +21,15 @@ const styles = {
 }
 
 export const NoteCard = ({ note, deleteNote, classes }) => (
-  <Tooltip title='Click to edit!' placment='top' enterDelay='2000'>
+  <Tooltip title='Click to edit!' placement='top' enterDelay='2000'>
     <Card className={classes.card}>
       <Link to={`/notes/${note.id}`} className={classes.link}>
-        <CardHeader
-          title={note.title}
+         <CardHeader 
+          title={note.title}  
+          onClick={() => deleteNote(note)}
           classes={{ title: classes.title }}
           action={
-            <NavLink to='/' onClick={() => deleteNote(note)}>
+            <NavLink to='/' >
               <Tooltip title='Delete Card!'>
                 <IconButton>
                   <DeleteOutline />
