@@ -1,47 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NoteCard should match the snapshot 1`] = `
-<WithStyles(Card)
-  className=""
+<WithStyles(Tooltip)
+  enterDelay="2000"
+  placement="top"
+  title="Click to edit!"
 >
-  <Link
-    replace={false}
-    to="/notes/1"
+  <WithStyles(Card)
+    className=""
   >
-    <WithStyles(CardHeader)
-      action={
-        <NavLink
-          activeClassName="active"
-          aria-current="page"
-          to="/"
-        >
-          <WithStyles(IconButton)>
-            <img
-              alt="trash"
-              src="./images/trash-can-outline.svg"
-            />
-          </WithStyles(IconButton)>
-        </NavLink>
-      }
-      onClick={[Function]}
-      title="Best Note"
-    />
-    <WithStyles(CardContent)>
-      <ul>
-        <WithStyles(NoteItems)
-          noteItems={
-            Array [
-              Object {
-                "text": "lala",
-              },
-              Object {
-                "text": "hooray",
-              },
-            ]
+    <Link
+      replace={false}
+      to="/notes/1"
+    >
+      <WithStyles(CardHeader)
+        action={
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/"
+          >
+            <WithStyles(Tooltip)
+              title="Delete Card!"
+            >
+              <WithStyles(IconButton)>
+                <pure(DeleteOutlineIcon) />
+              </WithStyles(IconButton)>
+            </WithStyles(Tooltip)>
+          </NavLink>
+        }
+        classes={
+          Object {
+            "title": undefined,
           }
-        />
-      </ul>
-    </WithStyles(CardContent)>
-  </Link>
-</WithStyles(Card)>
+        }
+        onClick={[Function]}
+        title="Best Note"
+      />
+      <WithStyles(CardContent)>
+        <ul>
+          <WithStyles(NoteItems)
+            noteItems={
+              Array [
+                Object {
+                  "text": "lala",
+                },
+                Object {
+                  "text": "hooray",
+                },
+              ]
+            }
+          />
+        </ul>
+      </WithStyles(CardContent)>
+    </Link>
+  </WithStyles(Card)>
+</WithStyles(Tooltip)>
 `;

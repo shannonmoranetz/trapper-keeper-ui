@@ -38,7 +38,7 @@ export class CreateNote extends React.Component {
 
 
   handleChangeNoteItems = event => {
-    const noteItemsCopy = this.makeCopy();
+    const noteItemsCopy = JSON.parse(JSON.stringify(this.state.noteItems));
     const { id } = event.target.closest('label');
     const { value: newText } = event.target;
     const matchedNoteItem = this.findMatchingNoteItem(noteItemsCopy, id);
@@ -52,7 +52,7 @@ export class CreateNote extends React.Component {
   };
 
   handleItemDelete = event => {
-    const noteItemsCopy = this.makeCopy();
+    const noteItemsCopy = JSON.parse(JSON.stringify(this.state.noteItems));
     const { id } = event.target.closest('label');
     const noteItemIndex = noteItemsCopy.findIndex(note => note.id === id);
     noteItemsCopy.splice(noteItemIndex, 1);
@@ -60,14 +60,12 @@ export class CreateNote extends React.Component {
   };
 
   handleToggleIsComplete = event => {
-    const noteItemsCopy = this.makeCopy();
+    const noteItemsCopy = JSON.parse(JSON.stringify(this.state.noteItems));
     const { id } = event.target.closest('label');
     const matchedNoteItem = this.findMatchingNoteItem(noteItemsCopy, id);
     matchedNoteItem.isCompleted = !matchedNoteItem.isCompleted;
     this.updateNoteItems(noteItemsCopy, id);
   };
-
-  makeCopy = () => JSON.parse(JSON.stringify(this.state.noteItems));
 
   findMatchingNoteItem = (noteItemsCopy, id) => {
     const matchedNoteItem = noteItemsCopy.find(note => note.id === id);
@@ -78,7 +76,6 @@ export class CreateNote extends React.Component {
     this.setState({
       noteItems: noteItemsCopy,
       currentFocus: id
-
     })
   };
 
@@ -155,13 +152,12 @@ export class CreateNote extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { title } = this.state;
     let isOpen = this.props.location.pathname.includes('note')
     return (
       <Dialog onClose={() => this.props.history.push('/')} open={isOpen} transitionDuration={1000} disableBackdropClick={true}>
         <DialogTitle>
           <Input 
-          value={title} 
+          value={this.state.title} 
           onChange={this.handleChangeTitle} 
           placeholder='Add a title'
           className={classes.formText} />
