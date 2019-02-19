@@ -1,3 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoteItems should match the snapshot 1`] = `<div />`;
+exports[`NoteItems should match the snapshot 1`] = `
+<div>
+  <WithStyles(Typography)
+    className={false}
+    id={3}
+    iscompleted="false"
+    key="3"
+  >
+    Shannon
+    <WithStyles(Divider)
+      light={true}
+    />
+  </WithStyles(Typography)>
+  <WithStyles(Divider)
+    className=""
+  />
+  <WithStyles(Typography)
+    id={1}
+    iscompleted="true"
+    key="1"
+  >
+    Dylan
+    <WithStyles(Divider)
+      light={true}
+    />
+  </WithStyles(Typography)>
+  <WithStyles(Typography)
+    id={2}
+    iscompleted="true"
+    key="2"
+  >
+    Justin
+    <WithStyles(Divider)
+      light={true}
+    />
+  </WithStyles(Typography)>
+</div>
+`;

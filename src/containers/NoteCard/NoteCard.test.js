@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow} from "enzyme";
 import { NoteCard, mapDispatchToProps } from "./NoteCard";
 import { deleteNote } from "../../thunks";
 import { removeNote } from "../../actions";
@@ -16,14 +16,15 @@ describe("NoteCard", () => {
   };
 
   beforeEach(() => {
-    wrapper = shallow(<NoteCard note={mockNote} deleteNote={deleteNoteMock} />);
+    wrapper = shallow(<NoteCard note={mockNote} classes={{card:''}} deleteNote={deleteNoteMock} />)
   });
 
   it("should match the snapshot", () => {
     expect(wrapper).toMatchSnapshot();
   });
   it("should call delete note when clicked", () => {
-    wrapper.find("NavLink").simulate("click");
+    wrapper = shallow(<NoteCard note={mockNote} classes={{card:''}} deleteNote={deleteNoteMock} />)
+    wrapper.find("WithStyles(CardHeader)").simulate("click");
     expect(deleteNoteMock).toHaveBeenCalled();
   });
 

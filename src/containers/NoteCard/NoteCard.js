@@ -20,11 +20,11 @@ const styles = {
 export const NoteCard = ({ note, deleteNote, classes }) => (
   <Card className={classes.card}>
     <Link to={`/notes/${note.id}`} className={classes.link}>
-    <CardHeader title={note.title}
+    <CardHeader title={note.title} onClick={() => deleteNote(note)}
       action={
-        <NavLink to='/' onClick={() => deleteNote(note)}>
+        <NavLink to='/' >
           <IconButton>
-            <img src='./images/trash-can-outline.svg' />
+            <img src='./images/trash-can-outline.svg' alt="trash" />
           </IconButton>
         </NavLink>
       }
