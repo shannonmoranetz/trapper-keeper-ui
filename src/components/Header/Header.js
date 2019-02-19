@@ -6,17 +6,31 @@ import AddIcon from '@material-ui/icons/Add'
 
 const styles = {
   toolTip: {
-    maxWidth: 100
+    maxWidth: 100,
+    backgroundColor: 'primary'
   },
   title: {
-    fontWeight: 900
+    fontWeight: 900,
+    color: '#48494a',
+    align: 'flex-start',
+    textShadow: '2px 2px 2px #658c91',
+    marginLeft: '10px'
+  },
+  iconButton: {
+    margin: 5
   }
 }
 
 const Header = ({ classes }) => (
   <AppBar position='sticky' color='primary'>
-      <Typography variant='h1' align='center' className={classes.title}>Trapper-Keeper</Typography>
-      <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}><Link to="/new-note"><IconButton color='secondary'><AddIcon/></IconButton></Link></Tooltip>
+    <Typography variant='h1' className={classes.title}>TrapperKeeper</Typography>
+    <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}>
+      <Link to="/new-note">
+        <IconButton color='secondary' className={classes.iconButton}>
+          <AddIcon />
+        </IconButton>
+      </Link>
+    </Tooltip>
   </AppBar>
 );
 
