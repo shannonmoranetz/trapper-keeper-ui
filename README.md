@@ -4,7 +4,7 @@
   Trapper Keeper is an application that allows users to keep track of their to-do's by using a clean and stylish UI. The application can add and delete entire lists, as well as individual list items. All lists and their respective list data are stored and saved to a local back-end server. 
 
 Current Version:
-![Current Version]()
+![Current Version](https://i.imgur.com/FOJsJCq.gifv)
 
 ## Getting Started
 
