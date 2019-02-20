@@ -22,7 +22,10 @@ exports[`should render without crashing 1`] = `
       <WithStyles(IconButton)
         color="secondary"
       >
-        <pure(AddIcon) />
+        <WithStyles(TouchRipple) />
+        <pure(AddIcon)
+          fontSize="large"
+        />
       </WithStyles(IconButton)>
     </Link>
   </WithStyles(Tooltip)>

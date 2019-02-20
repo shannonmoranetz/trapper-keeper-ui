@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withTheme, withStyles } from '@material-ui/core/styles'
-import { AppBar, Typography, IconButton, Tooltip } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import { withTheme, withStyles } from '@material-ui/core/styles';
+import { AppBar, Typography, IconButton, Tooltip } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
 
 const styles = {
   toolTip: {
     maxWidth: 100,
-    backgroundColor: 'primary'
+    height: 100,
+    margin: 25
   },
   title: {
     fontWeight: 900,
@@ -16,22 +18,26 @@ const styles = {
     textShadow: '2px 2px 2px #658c91',
     marginLeft: '10px'
   },
-  iconButton: {
-    margin: 5
+  appBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
-}
+};
 
 export const Header = ({ classes }) => (
-  <AppBar position='sticky' color='primary'>
+  <AppBar position='sticky' color='primary' className={classes.appBar}>
     <Typography variant='display4' className={classes.title}>TrapperKeeper</Typography>
     <Tooltip title='Add a new note!' placement='bottom-end' className={classes.toolTip}>
-      <Link to='/new-note'>
-        <IconButton color='secondary' className={classes.iconButton}>
-          <AddIcon />
-        </IconButton>
-      </Link>
+      
+        <Link to='/new-note'>
+          <IconButton color='secondary'>
+            <TouchRipple />
+            <AddIcon fontSize='large'/>
+          </IconButton>
+        </Link>
     </Tooltip>
   </AppBar>
 );
 
-export default withTheme()(withStyles(styles)(Header))
+export default withTheme()(withStyles(styles)(Header));

@@ -10,7 +10,7 @@ const styles = {
   strikethrough: {
     textDecoration: 'line-through'
   }
-}
+};
 
 export const NoteItems = ({ noteItems, classes }) => {
   const jsxItems = noteItems.map(item => (

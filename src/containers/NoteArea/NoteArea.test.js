@@ -1,6 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NoteArea, mapStateToProps } from './NoteArea';
+import uuid from 'uuid/v4';
+
+jest.mock('uuid/v4');
+uuid.mockReturnValue(1);
 
 describe('NoteArea', () => {
   let wrapper;

@@ -3,6 +3,7 @@ import { NoteArea, CreateNote, ErrorDisplay } from '../';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getNotes } from '../../thunks/';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header/Header';
 
@@ -22,12 +23,16 @@ export class App extends Component {
       <div className='App'>
 
           <Route path='/' component={Header} />
+          { this.props.isLoading ? 
+          <Typography align='center' variant='display2'>Loading...</Typography> : 
         <Switch> 
           <Route path='/' exact component={NoteArea} />
+
           <Route path='/new-note' component={CreateNote} />
           <Route path='/notes/:id' render={this.findNote} />
           <Route render={ErrorDisplay}/>
         </Switch>
+          }
 
       </div>
     );
@@ -35,7 +40,8 @@ export class App extends Component {
 };
 
 export const mapStateToProps = state => ({
-  notes: state.notes
+  notes: state.notes,
+  isLoading: state.isLoading
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -51,5 +57,6 @@ export default withRouter(
 
 App.propTypes = {
   getNotes: PropTypes.func,
-  notes: PropTypes.array
+  notes: PropTypes.array,
+  isLoading: PropTypes.bool
 };
