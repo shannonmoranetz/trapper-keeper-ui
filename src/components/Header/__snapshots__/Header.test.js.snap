@@ -22,6 +22,7 @@ exports[`should render without crashing 1`] = `
       <WithStyles(IconButton)
         color="secondary"
       >
+        <WithStyles(TouchRipple) />
         <pure(AddIcon)
           fontSize="large"
         />
